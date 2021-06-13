@@ -2,8 +2,8 @@ close all;
 clc;
 clear;
 global v step
-v = 1.5;
-step = 0.8;
+v = 2.5;
+step = 0.6;
 period = step/v;
 
 ig = InitialGuess(step, false);

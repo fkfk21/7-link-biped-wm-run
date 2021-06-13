@@ -10,6 +10,6 @@ end
 legend('u1','u2','u3','u4','u5','u6');
 
 subplot(2,1,2);
-plot(result.control_time, result.uw);
+plot(result.uw);
 title('uw');
 end

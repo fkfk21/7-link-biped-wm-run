@@ -8,8 +8,8 @@ m5 = params.m5;
 m6 = params.m6;
 m7 = params.m7;
 
-mw = params.mw;
-% mw = x.mw;
+%mw = params.mw;
+mw = x.mw;
 
 I1 = params.i1;
 I2 = params.i2;

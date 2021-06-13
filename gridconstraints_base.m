@@ -13,6 +13,6 @@ function gridconstraints_base(conh, q, phi, pj, dpj)
   conh.add(q(5:10)-phi,'<=',pi*ones(6,1));
   
   % 仮想障害物の回避
-  conh.add((pj(6,1)-step/2)^2+pj(6,2)^2,'>=',0.1^2);
+  conh.add((pj(6,1)-step/2)^2+pj(6,2)^2,'>=',(0.1)^2);
   
 end

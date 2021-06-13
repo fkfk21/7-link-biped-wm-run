@@ -24,6 +24,7 @@ function gridconstraints1(conh, k, K, x, p)
   
   if k == 1
       conh.add(dpj(6,2),'>=',0); %脚交換制約
+      conh.add(pj(6,2),'>=',0.1); %脚交換制約
       q0 = q;
       phi0 = phi;
       dq0 = dq;

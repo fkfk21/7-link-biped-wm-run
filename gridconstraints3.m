@@ -14,11 +14,11 @@ function gridconstraints3(conh, k, K, x, p)
 
   % 各関節が地面より上(y座標制約)
   conh.add(pj(1,2),'>=',0);
-  conh.add(pj(3,2),'==',0); % 支持脚つまさき
-  conh.add(pj(4,2),'==',0); % 支持脚かかと
+  conh.add(pj(3,2),'>=',0); % 支持脚つまさき
+  conh.add(pj(4,2),'>=',0); % 支持脚かかと
   conh.add(pj(5,2),'>=',0);
-  conh.add(pj(7,2),'>=',0);
-  conh.add(pj(8,2),'>=',0);
+  conh.add(pj(7,2),'==',0);
+  conh.add(pj(8,2),'==',0);
 
   if k == K
       conh.add(dpj(6,2),'<=',0); %脚交換制約

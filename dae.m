@@ -36,8 +36,8 @@ function dae(daeh,x,z,u,p)
   F = [z.f1; z.f2; z.f3];
 
   % spring sttifness of SEA
-  K = diag(repmat([276.6257 153.8759 250.0],1,2));
-  %K = diag(repmat([x.khip x.kknee x.kankle],1,2));
+  %K = diag(repmat([276.6257 153.8759 250.0],1,2));
+  K = diag(repmat([x.khip x.kknee x.kankle],1,2));
   % inertia of SEA
   B = diag(repmat([0.02 0.02 0.02],1,2));
   %B = diag(repmat([0.02 0.02 x.bankle],1,2));
@@ -90,11 +90,10 @@ function dae(daeh,x,z,u,p)
   daeh.setODE('dphi5' , z.ddphi5);
   daeh.setODE('dphi6' , z.ddphi6);
   daeh.setODE('time'  , 1       );
-  %daeh.setODE('khip'  , 0);
-  %daeh.setODE('kknee' , 0);
-  %daeh.setODE('kankle', 0);
-  %daeh.setODE('bankle', 0);
-  %daeh.setODE('mw'    , 0);
+  daeh.setODE('khip'  , 0);
+  daeh.setODE('kknee' , 0);
+  daeh.setODE('kankle', 0);
+  daeh.setODE('mw'    , 0);
 
   daeh.setAlgEquation(DAE1(1));
   daeh.setAlgEquation(DAE1(2));

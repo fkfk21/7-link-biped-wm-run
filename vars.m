@@ -29,20 +29,20 @@ function vars(vh)
   vh.addState('dth4');
   vh.addState('dth5');
   vh.addState('dth6');
-  vh.addState('dphi1', 'lb',-10, 'ub',10);
-  vh.addState('dphi2', 'lb',-10, 'ub',10);
-  vh.addState('dphi3', 'lb',-10, 'ub',10);
-  vh.addState('dphi4', 'lb',-10, 'ub',10);
-  vh.addState('dphi5', 'lb',-10, 'ub',10);
-  vh.addState('dphi6', 'lb',-10, 'ub',10);
+  vh.addState('dphi1', 'lb',-30, 'ub',30);
+  vh.addState('dphi2', 'lb',-30, 'ub',30);
+  vh.addState('dphi3', 'lb',-30, 'ub',30);
+  vh.addState('dphi4', 'lb',-30, 'ub',30);
+  vh.addState('dphi5', 'lb',-30, 'ub',30);
+  vh.addState('dphi6', 'lb',-30, 'ub',30);
   % time
   vh.addState('time'  ,'lb',0);
   % params
-  %vh.addState('khip'  ,'lb',0);
-  %vh.addState('kknee' ,'lb',0);
-  %vh.addState('kankle','lb',0);
+  vh.addState('khip'  ,'lb',0);
+  vh.addState('kknee' ,'lb',0);
+  vh.addState('kankle','lb',0);
   %vh.addState('bankle','lb',0);
-  %vh.addState('mw'    ,'lb',0);
+  vh.addState('mw'    ,'lb',0);
 
   %  AlgVar z
   vh.addAlgVar('ddxb');
@@ -66,13 +66,13 @@ function vars(vh)
   vh.addAlgVar('f3');
 
   % Control u
-  vh.addControl('u1','lb',-50,'ub',50);
-  vh.addControl('u2','lb',-50,'ub',50);
-  vh.addControl('u3','lb',-50,'ub',50);
-  vh.addControl('u4','lb',-50,'ub',50);
-  vh.addControl('u5','lb',-50,'ub',50);
-  vh.addControl('u6','lb',-50,'ub',50);
-  vh.addControl('uw','lb',-50,'ub',50);
+  vh.addControl('u1','lb',-100,'ub',100);
+  vh.addControl('u2','lb',-100,'ub',100);
+  vh.addControl('u3','lb',-100,'ub',100);
+  vh.addControl('u4','lb',-100,'ub',100);
+  vh.addControl('u5','lb',-100,'ub',100);
+  vh.addControl('u6','lb',-100,'ub',100);
+  vh.addControl('uw','lb',-100,'ub',100);
 
   % Parameter p
   vh.addParameter('p3', 'default', step);

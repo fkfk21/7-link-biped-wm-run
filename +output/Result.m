@@ -44,6 +44,10 @@ classdef Result
     pjx
     pjy
     step
+    khip
+    kknee
+    kankle
+    mw
   end
   methods
     function obj = Result(sol, times)
@@ -97,6 +101,10 @@ classdef Result
       end
       steps = sol{1}.parameters.p3.value;
       obj.step = steps(1);
+      khips = sol{1}.states.khip.value; obj.khip = khips(1);
+      kknees = sol{1}.states.kknee.value; obj.kknee = kknees(1);
+      kankles = sol{1}.states.kankle.value; obj.kankle = kankles(1);
+      mws = sol{1}.states.mw.value; obj.mw = mws(1);
     end
     function pj = calc_pj(obj, k)
         q = [obj.xb(k);obj.yb(k);obj.thb(k);obj.lw(k); ...
