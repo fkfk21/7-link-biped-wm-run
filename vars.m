@@ -4,7 +4,7 @@ function vars(vh)
   % State x
   vh.addState('xb');
   vh.addState('yb',  'lb',     0);
-  vh.addState('thb', 'lb',  pi/6,'ub',         pi/2); % 腰角度
+  vh.addState('thb', 'lb',  pi/4,'ub',         pi/2); % 腰角度
   vh.addState('lw',  'lb',     0,'ub',2/3*params.l7); % 揺動質量
   vh.addState('th1');
   vh.addState('th2', 'lb', -pi/2,'ub',            0); % 膝角度

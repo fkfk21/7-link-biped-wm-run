@@ -12,6 +12,8 @@ len = length(result.pjx);
 for k=1:len/5:len
   result.draw_line(int32(k));
 end
+result.draw_line(len);
+
 
 % plot theta
 th = [result.th1; result.th2; result.th3; result.th4; result.th5; result.th6];

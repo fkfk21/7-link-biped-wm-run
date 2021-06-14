@@ -102,8 +102,8 @@ classdef InitialGuess
     
     function set_initial_guess(obj, mode1, mode2, mode3, period)
       period1 = period*0.6;
-      period2 = period*0.2;
-      period3 = period*0.2;
+      period2 = period*0.3;
+      period3 = period*0.1;
       period = [period1, period2, period3];
       utils.set_initial_guess(mode1, 1, obj, period);
       utils.set_initial_guess(mode2, 2, obj, period);
