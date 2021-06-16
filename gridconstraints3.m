@@ -27,6 +27,7 @@ function gridconstraints3(conh, k, K, x, p)
       conh.add(dpj(6,2),'<=',0); %脚交換制約
       conh.add((q(1)-q0(1))/x.time,'==',v); %速度制約
       conh.add(q(1)-q0(1),'==',p.p3); % 歩幅制約
+      conh.add(q(1) , '>=', p.p3*0.7);
       % reset map
       reset_map1 = [
         zeros(3),eye(3);

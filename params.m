@@ -4,26 +4,26 @@ classdef params
         g=9.80665;
 
         % mass of link
-        m1 = 6.8; %upper leg
-        m2 = 3.2; %lower leg
-        m3 = 0.6; %foot
-        m4 = 6.8; %upper leg
-        m5 = 3.2; %lower leg
-        m6 = 0.6; %foot
-        m7 = 12.0; %torso
+        m1 = 6.8/4; %upper leg
+        m2 = 3.2/4; %lower leg
+        m3 = 0.6/4; %foot
+        m4 = 6.8/4; %upper leg
+        m5 = 3.2/4; %lower leg
+        m6 = 0.6/4; %foot
+        m7 = 12.0/4; %torso
 
         % mass of wobbling mass
         mw = 0.5;
 
         % inertia of link
         %il = 1/12 * ModelDynamics.ml .* ModelDynamics.ll.^2;
-        i1 = 0.47; %upper leg
-        i2 = 0.20; %lower leg
-        i3 = 0.05; %foot
-        i4 = 0.47; %upper leg
-        i5 = 0.20; %lower leg
-        i6 = 0.05; %foot
-        i7 = 1.33; %torso
+        i1 = 0.47/4; %upper leg
+        i2 = 0.20/4; %lower leg
+        i3 = 0.05/4; %foot
+        i4 = 0.47/4; %upper leg
+        i5 = 0.20/4; %lower leg
+        i6 = 0.05/4; %foot
+        i7 = 1.00/4; %torso
 
         % length of link
         l1 = 0.4; %upper leg

@@ -1,6 +1,6 @@
 function animation(result)
 playspeed = 0.5;
-
+close all;
 figure;
 plot([-10 10],[0 0],'k')
 hold on

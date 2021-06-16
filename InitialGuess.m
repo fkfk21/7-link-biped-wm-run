@@ -22,9 +22,9 @@ classdef InitialGuess
     mw
   end
   properties (Constant)
-    f1 = [-40,  40, 0, 0,  40, -40]
-    f2 = [300, 300, 0, 0, 300, 300]
-    f3 = [ 10,  10, 0, 0,  10,  10]
+    f1 = [-40,  40, 0, 0,   0,   0]
+    f2 = [300, 300, 0, 0,   0,   0]
+    f3 = [ 10,  10, 0, 0,   0,   0]
   end
   methods
     function ig = InitialGuess(step, draw)

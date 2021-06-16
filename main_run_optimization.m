@@ -2,7 +2,7 @@ close all;
 clc;
 clear;
 global v step
-v = 3.0;
+v = 2.5;
 step = 0.8;
 period = step/v;
 
@@ -32,12 +32,13 @@ mode3 = ocl.Stage( ...
   'gridconstraints', @gridconstraints3, ...
   'N', 2, 'd', 3);
 
-
+%                        1end      2end
+period_bound = period*[0.4, 0.6, 0.7, 0.9];
 mode1.setInitialStateBounds('time', 0);
-mode1.setEndStateBounds('time', period*0.5, period*0.8);
-mode2.setInitialStateBounds('time', period*0.5, period*0.8);
-mode2.setEndStateBounds('time', period*0.7, period*0.9);
-mode3.setInitialStateBounds('time', period*0.7, period*0.9);
+mode1.setEndStateBounds('time', period_bound(1), period_bound(2));
+mode2.setInitialStateBounds('time', period_bound(1), period_bound(2));
+mode2.setEndStateBounds('time', period_bound(3), period_bound(4));
+mode3.setInitialStateBounds('time', period_bound(3), period_bound(4));
 mode3.setEndStateBounds('time', period*0.9, period*1.1);
 
 ig.set_initial_guess(mode1, mode2, mode3, period);
