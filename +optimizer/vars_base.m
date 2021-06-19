@@ -1,10 +1,10 @@
-function vars(vh)
-  tic;
+function vars_base(vh)
+
   global step
   % State x
   vh.addState('xb');
   vh.addState('yb',  'lb',     0);
-  vh.addState('thb', 'lb',  pi/4,'ub',         pi/2); % 腰角度
+  vh.addState('thb', 'lb',  pi/6,'ub',         pi/2); % 腰角度
   vh.addState('lw',  'lb',     0,'ub',2/3*params.l7); % 揺動質量
   vh.addState('th1');
   vh.addState('th2', 'lb', -pi/2,'ub',            0); % 膝角度
@@ -61,9 +61,7 @@ function vars(vh)
   vh.addAlgVar('ddphi4');
   vh.addAlgVar('ddphi5');
   vh.addAlgVar('ddphi6');
-  vh.addAlgVar('f1');
-  vh.addAlgVar('f2','lb',0);
-  vh.addAlgVar('f3');
+
 
   % Control u
   vh.addControl('u1','lb',-100,'ub',100);
@@ -77,4 +75,6 @@ function vars(vh)
   % Parameter p
   vh.addParameter('p3', 'default', step);
 
-  fprintf('vars                  complete : %.2f seconds\n',toc);
+
+
+end

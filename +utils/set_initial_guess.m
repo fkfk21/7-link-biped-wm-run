@@ -1,6 +1,7 @@
 function set_initial_guess(mode, mode_num, ig, period)
 
 n = mode_num;
+if true
 mode.initialize('xb'  , [0 1], ig.xb(:,n:n+1)  );
 mode.initialize('yb'  , [0 1], ig.yb(:,n:n+1)  );
 mode.initialize('thb' , [0 1], ig.thb(:,n:n+1) );
@@ -33,9 +34,12 @@ mode.initialize('dphi3', [0 1], diff(ig.phi3(:,n:n+1))/period(n)*ones(1,2));
 mode.initialize('dphi4', [0 1], diff(ig.phi4(:,n:n+1))/period(n)*ones(1,2));
 mode.initialize('dphi5', [0 1], diff(ig.phi5(:,n:n+1))/period(n)*ones(1,2));
 mode.initialize('dphi6', [0 1], diff(ig.phi6(:,n:n+1))/period(n)*ones(1,2));
-mode.initialize('f1', [0 1], ig.f1(:, n:n+1));
-mode.initialize('f2', [0 1], ig.f2(:, n:n+1));
-mode.initialize('f3', [0 1], ig.f3(:, n:n+1));
+mode.initialize('f1x', [0 1], ig.f1x(:, n:n+1));
+mode.initialize('f1y', [0 1], ig.f1y(:, n:n+1));
+mode.initialize('f1th', [0 1], ig.f1th(:, n:n+1));
+mode.initialize('f2x', [0 1], ig.f2x(:, n:n+1));
+mode.initialize('f2y', [0 1], ig.f2y(:, n:n+1));
+mode.initialize('f2th', [0 1], ig.f2th(:, n:n+1));
 period_tmp = [0, period];
 mode.initialize('time', [0 1], [sum(period_tmp(1:n)) sum(period_tmp(1:n+1))]);
 
@@ -43,5 +47,9 @@ mode.initialize('khip'  , [0 1],ig.khip  *ones(1,2));
 mode.initialize('kknee' , [0 1],ig.kknee *ones(1,2));
 mode.initialize('kankle', [0 1],ig.kankle*ones(1,2));
 mode.initialize('mw'    , [0 1],ig.mw    *ones(1,2));
+
+else
+  
+end
 
 end

@@ -7,8 +7,8 @@ figure;
 plot([-10 10],[0 0],'k')
 hold on
 axis equal
-ylim([-0.2 1.5])
-xlim([-1.0 1.0])
+ylim([-0.2 1.8])
+xlim([-1.0 2.0])
 pause(0.5)
 
 

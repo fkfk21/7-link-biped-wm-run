@@ -48,6 +48,12 @@ classdef Result
     kknee
     kankle
     mw
+    f1x
+    f1y
+    f1th
+    f2x
+    f2y
+    f2th
   end
   methods
     function obj = Result(sol, times)
@@ -92,6 +98,12 @@ classdef Result
         obj.u5 = [obj.u5, sol{i}.controls.u5.value];
         obj.u6 = [obj.u6, sol{i}.controls.u6.value];
         obj.uw = [obj.uw, sol{i}.controls.uw.value];
+        obj.f1x = [obj.f1x, sol{i}.integrator.algvars.f1x.value];
+        obj.f1y = [obj.f1y, sol{i}.integrator.algvars.f1y.value];
+        obj.f1th = [obj.f1th, sol{i}.integrator.algvars.f1th.value];
+        obj.f2x = [obj.f2x, sol{i}.integrator.algvars.f2x.value];
+        obj.f2y = [obj.f2y, sol{i}.integrator.algvars.f2y.value];
+        obj.f2th = [obj.f2th, sol{i}.integrator.algvars.f2th.value];
         obj.control_time = [obj.control_time, times{i}.controls.value];
       end
       for k=1:length(obj.time)

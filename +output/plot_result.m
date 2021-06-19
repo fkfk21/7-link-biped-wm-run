@@ -16,8 +16,10 @@ output.plot.theta_phi(result);
 % plot controls
 output.plot.controls(result);
 
+% plot force
+output.plot.force(result);
+
 % print params
 output.print_param(result);
-
 
 end
