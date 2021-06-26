@@ -1,10 +1,18 @@
 close all;
 clc;
 clear;
-global v step
-v = 3.2;
-step = 1.2;
+global v step flags
+v = 3.0;
+step = 1.0;
 period = step/v;
+
+flags = Flags;
+flags.use_sea = true;
+flags.use_wobbling_mass = false;
+flags.optimize_mw = false;
+flags.optimize_k = true;
+flags.check()
+
 
 ig = InitialGuess(step, false);
 ig.draw();
@@ -46,12 +54,21 @@ ig.set_initial_guess(mode1, mode2, mode3, period);
 ocp = ocl.MultiStageProblem({mode1,mode2,mode3}, ...
                             {@trans_stand2float,@trans_float2stand});
 
+% save console log
+exe_time = now;
+[~,~]=mkdir('+console');
+console_filename = ['+console/' datestr(exe_time,'yyyy-mm-dd_HH-MM-SS') '.log'];
+diary(console_filename)
 
+% solve
 [sol,times] = ocp.solve();
 
-result = output.Result(sol, times);
+result = output.Result(sol, times, flags);
+
 % save results to file
 [~,~]=mkdir('+results');
-filename = [datestr(now,'yyyy-mm-dd_HH-MM-SS') '.mat'];
-save(['+results/' filename],'sol','times','result');                          
+result_filename = [datestr(exe_time,'yyyy-mm-dd_HH-MM-SS') '.mat'];
+save(['+results/' result_filename],'sol','times','result','flags','v','step');
+
+diary off;
     

@@ -1,3 +1,4 @@
 *.asv
 +results/
 +SEA_model/
++console/

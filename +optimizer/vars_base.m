@@ -1,6 +1,6 @@
 function vars_base(vh)
 
-  global step
+  global step flags
   % State x
   vh.addState('xb');
   vh.addState('yb',  'lb',     0);
@@ -38,12 +38,16 @@ function vars_base(vh)
   % time
   vh.addState('time'  ,'lb',0);
   % params
-  vh.addState('khip'  ,'lb',0);
-  vh.addState('kknee' ,'lb',0);
-  vh.addState('kankle','lb',0);
-  %vh.addState('bankle','lb',0);
-  vh.addState('mw'    ,'lb',0);
-
+  if flags.optimize_k
+    vh.addState('khip'  ,'lb',0);
+    vh.addState('kknee' ,'lb',0);
+    vh.addState('kankle','lb',0);
+    %vh.addState('bankle','lb',0);
+  end
+  if flags.optimize_mw
+    vh.addState('mw'    ,'lb',0);
+  end
+  
   %  AlgVar z
   vh.addAlgVar('ddxb');
   vh.addAlgVar('ddyb');
@@ -70,8 +74,11 @@ function vars_base(vh)
   vh.addControl('u4','lb',-100,'ub',100);
   vh.addControl('u5','lb',-100,'ub',100);
   vh.addControl('u6','lb',-100,'ub',100);
-  vh.addControl('uw','lb',-100,'ub',100);
-
+  if flags.use_wobbling_mass
+    vh.addControl('uw','lb',-100,'ub',100);
+  else
+    vh.addControl('uw','lb',0,'ub',0);
+  end
   % Parameter p
   vh.addParameter('p3', 'default', step);
 

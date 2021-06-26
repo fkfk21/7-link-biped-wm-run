@@ -52,5 +52,15 @@ classdef params
 
         % drive matrix
         S = [zeros(3,7);eye(7)];
+        
+        % spring sttifness of SEA
+        khip = 277;
+        kknee = 153;
+        kankle = 250;
+        
+        % inertia of SEA
+        bhip = 0.02;
+        bknee = 0.02;
+        bankle = 0.02;
     end
 end

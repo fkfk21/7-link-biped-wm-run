@@ -1,4 +1,5 @@
 function set_initial_guess(mode, mode_num, ig, period)
+global flags
 
 n = mode_num;
 if true
@@ -43,11 +44,14 @@ mode.initialize('f2th', [0 1], ig.f2th(:, n:n+1));
 period_tmp = [0, period];
 mode.initialize('time', [0 1], [sum(period_tmp(1:n)) sum(period_tmp(1:n+1))]);
 
-mode.initialize('khip'  , [0 1],ig.khip  *ones(1,2));
-mode.initialize('kknee' , [0 1],ig.kknee *ones(1,2));
-mode.initialize('kankle', [0 1],ig.kankle*ones(1,2));
-mode.initialize('mw'    , [0 1],ig.mw    *ones(1,2));
-
+if flags.optimize_k
+  mode.initialize('khip'  , [0 1],ig.khip  *ones(1,2));
+  mode.initialize('kknee' , [0 1],ig.kknee *ones(1,2));
+  mode.initialize('kankle', [0 1],ig.kankle*ones(1,2));
+end
+if flags.optimize_mw
+  mode.initialize('mw'    , [0 1],ig.mw    *ones(1,2));
+end
 else
   
 end

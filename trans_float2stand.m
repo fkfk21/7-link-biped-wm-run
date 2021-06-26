@@ -3,6 +3,7 @@
 function trans_float2stand(ch, x0, xF)
 % x0 current stage
 % xF previous stage
+global flags
 
 [~, dq, ~, ~] = utils.decompose_state(xF);
 M = SEA_model.M(params,xF);
@@ -42,9 +43,13 @@ ch.add(x0.dphi3, '==', xF.dphi3);
 ch.add(x0.dphi4, '==', xF.dphi4);
 ch.add(x0.dphi5, '==', xF.dphi5);
 ch.add(x0.dphi6, '==', xF.dphi6);
-ch.add(x0.khip, '==', xF.khip);
-ch.add(x0.kknee, '==', xF.kknee);
-ch.add(x0.kankle, '==', xF.kankle);
-ch.add(x0.mw, '==', xF.mw);
+if flags.optimize_k
+  ch.add(x0.khip, '==', xF.khip);
+  ch.add(x0.kknee, '==', xF.kknee);
+  ch.add(x0.kankle, '==', xF.kankle);
+end
+if flags.optimize_mw
+  ch.add(x0.mw, '==', xF.mw);
+end
 ch.add(x0.time,'==',xF.time);
 end

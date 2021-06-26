@@ -1,16 +1,16 @@
-function animation(result)
-playspeed = 0.5;
+function animation(result, loop)
+playspeed = 0.2;
 close all;
 figure;
 plot([-10 10],[0 0],'k')
 hold on
 axis equal
 ylim([-0.2 1.8])
-xlim([-1.0 2.0])
+xlim([-1.0 1.5*loop])
 pause(0.5)
 
 
-for n=1:1
+for n=1:loop
   xb   = result.xb;
   yb   = result.yb;
   thb  = result.thb;
@@ -50,7 +50,7 @@ for n=1:1
       pj(9,:) = pb      +  params.l7              * [cos(th_abs(7)) sin(th_abs(7))]; %head
       pj(10,:) = pb      + (params.l7 - lwm    )  * [cos(th_abs(7)) sin(th_abs(7))];
 
-      if k >= 2 || n >= 2
+      if k >= 2
           pause((time(k)-time(k-1)-toc)/playspeed);
           delete(l1);
           delete(l2);
@@ -72,7 +72,17 @@ for n=1:1
       l7 = line([q(1)   ,pj(9,1)],[q(2)   ,pj(9,2)]);
       l8 = plot(pj(10,1),pj(10,2),'o','color',[38,124,185]/255,'MarkerSize',10);
     %   l8 = line([pj(10,1),pj(10,1)],[pj(10,2),pj(10,2)],'marker','o');
-      pause(0.3)
+      %pause(0.3)
+  end
+  if n~=loop
+    delete(l1);
+    delete(l2);
+    delete(l3);
+    delete(l4);
+    delete(l5);
+    delete(l6);
+    delete(l7);
+    delete(l8);
   end
 end
 end

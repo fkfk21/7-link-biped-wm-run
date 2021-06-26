@@ -1,6 +1,8 @@
 function dae1(daeh,x,z,u,p)
   tic;
   
+  global flags
+  
   % 共通部分
   optimizer.dae_base(daeh, x, z, u, p);
   
@@ -14,12 +16,15 @@ function dae1(daeh,x,z,u,p)
   F1 = [z.f1x; z.f1y; z.f1th];
   F2 = [z.f2x; z.f2y; z.f2th];
 
-  % spring sttifness of SEA
-  %K = diag(repmat([276.6257 153.8759 250.0],1,2));
-  K = diag(repmat([x.khip x.kknee x.kankle],1,2));
-  % inertia of SEA
-  B = diag(repmat([0.02 0.02 0.02],1,2));
-  %B = diag(repmat([0.02 0.02 x.bankle],1,2));
+  if flags.optimize_k
+    % spring sttifness of SEA
+    K = diag(repmat([x.khip x.kknee x.kankle],1,2));
+    % inertia of SEA
+    B = diag(repmat([params.bhip params.bknee params.bankle],1,2));
+  else
+    K = diag(repmat([params.khip params.kknee params.kankle],1,2));
+    B = diag(repmat([params.bhip params.bknee params.bankle],1,2));
+  end
 
   S = params.S;
   % wobbling mass
@@ -29,7 +34,7 @@ function dae1(daeh,x,z,u,p)
   h = SEA_model.h(params,x,z);
 
   Jc1 = SEA_model.Jc1(params,x);
-  dJc1 = SEA_model.dJc1(params,x,z);
+  dJc1 = SEA_model.dJc1(params,x);
 
   tau = K*(phi-q(5:10,:));
   tau2 = [uw;tau];

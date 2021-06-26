@@ -1,3 +1,4 @@
+global flags
 g = params.g;
 
 m1 = params.m1;
@@ -8,8 +9,11 @@ m5 = params.m5;
 m6 = params.m6;
 m7 = params.m7;
 
-%mw = params.mw;
-mw = x.mw;
+if flags.optimize_mw
+  mw = x.mw;
+else
+  mw = params.mw;
+end
 
 I1 = params.i1;
 I2 = params.i2;
