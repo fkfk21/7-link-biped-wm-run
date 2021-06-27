@@ -1,14 +1,26 @@
-function animation(result, loop)
-playspeed = 0.2;
+function animation(result, loop, save_video)
+playspeed = 0.1;
 close all;
-figure;
+f = figure;
+f.Position = f.Position +[-500 -500 500 200];
 plot([-10 10],[0 0],'k')
 hold on
 axis equal
 ylim([-0.2 1.8])
 xlim([-1.0 1.5*loop])
-pause(0.5)
+formatSpec = 'time: %.4f';
+title_handle = title(sprintf(formatSpec, 0.0));
 
+
+pause(10)
+
+if save_video
+    disp('Saving movie')
+    v=VideoWriter('animation.avi');
+    open(v)
+    mov = getframe(f);
+    writeVideo(v,mov);
+end
 
 for n=1:loop
   xb   = result.xb;
@@ -63,16 +75,21 @@ for n=1:loop
       end
       tic;
       hold on;
-      l1 = line([q(1)   ,pj(1,1)],[q(2)   ,pj(1,2)],'Color', 'r');
-      l2 = line([pj(1,1),pj(2,1)],[pj(1,2),pj(2,2)],'Color', 'r');
+      l1 = line([q(1)   ,pj(1,1)],[q(2)   ,pj(1,2)]);
+      l2 = line([pj(1,1),pj(2,1)],[pj(1,2),pj(2,2)]);
       l3 = line([pj(3,1),pj(4,1)],[pj(3,2),pj(4,2)]);
-      l4 = line([q(1)   ,pj(5,1)],[q(2)   ,pj(5,2)],'Color', 'g');
-      l5 = line([pj(5,1),pj(6,1)],[pj(5,2),pj(6,2)],'Color', 'g');
+      l4 = line([q(1)   ,pj(5,1)],[q(2)   ,pj(5,2)]);
+      l5 = line([pj(5,1),pj(6,1)],[pj(5,2),pj(6,2)]);
       l6 = line([pj(7,1),pj(8,1)],[pj(7,2),pj(8,2)]);
       l7 = line([q(1)   ,pj(9,1)],[q(2)   ,pj(9,2)]);
-      l8 = plot(pj(10,1),pj(10,2),'o','color',[38,124,185]/255,'MarkerSize',10);
+      l8 = plot(pj(10,1),pj(10,2),'o','color',[38,124,185]/255,'MarkerSize',4);
     %   l8 = line([pj(10,1),pj(10,1)],[pj(10,2),pj(10,2)],'marker','o');
       %pause(0.3)
+      title_handle.String = sprintf(formatSpec, time(k)+time(end)*(n-1));
+      if save_video
+        mov = getframe(f);
+        writeVideo(v, mov);
+      end
   end
   if n~=loop
     delete(l1);
@@ -85,4 +102,8 @@ for n=1:loop
     delete(l8);
   end
 end
+  if save_video
+      close(v);
+      disp('Finished!')
+  end
 end

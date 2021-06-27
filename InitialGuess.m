@@ -31,16 +31,16 @@ classdef InitialGuess
   end
   methods
     function ig = InitialGuess(step, draw)
-      ig.xb = [-step/4,step/4,step/2,step*3/4];
-      ig.yb = [sqrt(0.8^2-(step/4)^2),sqrt(0.8^2-(step/4)^2),sqrt(0.8^2-(step/4)^2)*1.2,sqrt(0.8^2-(step/4)^2)];
+      ig.xb = [-step/2,step/4,step/2,step/2];
+      ig.yb = [sqrt(0.8^2-(step/2)^2),sqrt(0.8^2-(step/4)^2),sqrt(0.8^2-(step/4)^2)*1.2,sqrt(0.8^2-(step/2)^2)];
       ig.thb = [pi/3,pi/3,pi/3,pi/3];
       ig.lw = [0,0,0,0];
-      ig.th1 = [asin(step/4/0.8),-asin(step/4/0.8),-asin(step/4/0.8),-asin(step/4/0.8)]+(pi+(pi/2-ig.thb));
+      ig.th1 = [asin(step/2/0.8),-asin(step/4/0.8),-asin(step/4/0.8),-asin(step/2/0.8)]+(pi+(pi/2-ig.thb));
       ig.th2 = [0,0,0,-pi/4];
-      ig.th3 = [acos(step/4/0.8),pi-acos(step/4/0.8),pi-acos(step/4/0.8),pi-acos(step/4/0.8)];
-      ig.th4 = [-asin(step/4/0.8),asin(step/4/0.8),asin(step/4/0.8),asin(step/4/0.8)]+(pi+(pi/2-ig.thb));
+      ig.th3 = [acos(step/2/0.8),pi-acos(step/4/0.8),pi-acos(step/4/0.8),pi-acos(step/2/0.8)];
+      ig.th4 = [-asin(step/2/0.8),asin(step/4/0.8),asin(step/4/0.8),asin(step/2/0.8)]+(pi+(pi/2-ig.thb));
       ig.th5 = [-pi/4,-pi/4,-pi/4,0];
-      ig.th6 = [pi-acos(step/4/0.8),acos(step/4/0.8),acos(step/4/0.8),acos(step/4/0.8)];
+      ig.th6 = [pi-acos(step/2/0.8),acos(step/4/0.8),acos(step/4/0.8),acos(step/2/0.8)];
       ig.phi1 = ig.th1;
       ig.phi2 = ig.th2;
       ig.phi3 = ig.th3;
