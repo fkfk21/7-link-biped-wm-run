@@ -15,6 +15,8 @@ for i=1:6
   plot(result.time, phi(i,:));
 end
 legend('th1','th2','th3','th4','th5','th6','phi1','phi2','phi3','phi4','phi5','phi6');
+xlabel('time');
+
 
 % plot theta
 dth = [result.dth1; result.dth2; result.dth3; result.dth4; result.dth5; result.dth6];
@@ -31,6 +33,7 @@ for i=1:6
   plot(result.time, dphi(i,:));
 end
 legend('dth1','dth2','dth3','dth4','dth5','dth6','dphi1','dphi2','dphi3','dphi4','dphi5','dphi6');
+xlabel('time');
 
 
 end
