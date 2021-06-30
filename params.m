@@ -10,7 +10,7 @@ classdef params
         m4 = 6.8; %upper leg
         m5 = 3.2; %lower leg
         m6 = 0.6; %foot
-        m7 = 12.0; %torso
+        m7 = 11.5; %torso
 
         % mass of wobbling mass
         mw = 0.256290;
@@ -54,9 +54,9 @@ classdef params
         S = [zeros(3,7);eye(7)];
         
         % spring sttifness of SEA
-        khip = 889.018371;
-        kknee = 470.096191;
-        kankle = 918.763522;
+        khip = 1845.985117;
+        kknee = 1542.574148;
+        kankle = 1807.718592;
         
         % inertia of SEA
         bhip = 0.02;

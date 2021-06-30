@@ -6,7 +6,7 @@ function vars_base(vh)
   vh.addState('yb',  'lb',     0);
   vh.addState('thb', 'lb',  pi/6,'ub',         pi/2); % 腰角度
   if flags.use_wobbling_mass
-    vh.addState('lw',  'lb',     1/4*params.l7,'ub',3/4*params.l7); % 揺動質量
+    vh.addState('lw',  'lb',     0.4*params.l7,'ub',0.6*params.l7); % 揺動質量
   else
     vh.addState('lw',  'lb',     1/2*params.l7,'ub',1/2*params.l7); % 揺動質量
   end
@@ -56,13 +56,13 @@ function vars_base(vh)
   vh.addState('time'  ,'lb',0);
   % params
   if flags.optimize_k
-    vh.addState('khip'  ,'lb',0);
-    vh.addState('kknee' ,'lb',0);
-    vh.addState('kankle','lb',0);
+    vh.addState('khip'  ,'lb',0, 'ub',2000);
+    vh.addState('kknee' ,'lb',0, 'ub',2000);
+    vh.addState('kankle','lb',0, 'ub',2000);
     %vh.addState('bankle','lb',0);
   end
   if flags.optimize_mw
-    vh.addState('mw'    ,'lb', 0);
+    vh.addState('mw'    ,'lb', 0.1);
   end
   
   %  AlgVar z
@@ -85,12 +85,12 @@ function vars_base(vh)
 
 
   % Control u
-  vh.addControl('u1','lb',-400,'ub',400);
-  vh.addControl('u2','lb',-400,'ub',400);
-  vh.addControl('u3','lb',-400,'ub',400);
-  vh.addControl('u4','lb',-400,'ub',400);
-  vh.addControl('u5','lb',-400,'ub',400);
-  vh.addControl('u6','lb',-400,'ub',400);
+  vh.addControl('u1','lb',-200,'ub',200);
+  vh.addControl('u2','lb',-200,'ub',200);
+  vh.addControl('u3','lb',-200,'ub',200);
+  vh.addControl('u4','lb',-200,'ub',200);
+  vh.addControl('u5','lb',-200,'ub',200);
+  vh.addControl('u6','lb',-200,'ub',200);
   if flags.use_wobbling_mass
     vh.addControl('uw','lb',-100,'ub',100);
   else

@@ -47,10 +47,10 @@ classdef InitialGuess
       ig.phi4 = ig.th4;
       ig.phi5 = ig.th5;
       ig.phi6 = ig.th6;
-      ig.khip = 276.6257;
-      ig.kknee = 153.8759;
-      ig.kankle = 250.0;
-      ig.mw = params.mw;
+      ig.khip = params.khip;
+      ig.kknee = params.kknee;
+      ig.kankle = params.kankle;
+      ig.mw = 0.5;
       if draw
         ig.draw();
       end
@@ -104,9 +104,9 @@ classdef InitialGuess
     end
     
     function set_initial_guess(obj, mode1, mode2, mode3, period)
-      period1 = period*0.6;
-      period2 = period*0.3;
-      period3 = period*0.1;
+      period1 = period*0.4;
+      period2 = period*0.4;
+      period3 = period*0.2;
       period = [period1, period2, period3];
       utils.set_initial_guess(mode1, 1, obj, period);
       utils.set_initial_guess(mode2, 2, obj, period);

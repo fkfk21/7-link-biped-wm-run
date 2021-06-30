@@ -68,7 +68,7 @@ for n=1:loop
       pj(10,:) = pb      + (params.l7 - lwm    )  * [cos(th_abs(7)) sin(th_abs(7))];
 
       if t > 0
-          pause(v_period-toc);
+          pause(v_period/playratio-toc);
           delete(l1);
           delete(l2);
           delete(l3);
