@@ -13,7 +13,7 @@ classdef params
         m7 = 12.0; %torso
 
         % mass of wobbling mass
-        mw = 0.244131;
+        mw = 0.256290;
 
         % inertia of link
         %il = 1/12 * ModelDynamics.ml .* ModelDynamics.ll.^2;
@@ -54,9 +54,9 @@ classdef params
         S = [zeros(3,7);eye(7)];
         
         % spring sttifness of SEA
-        khip = 1331.046731;
-        kknee = 1348.783550;
-        kankle = 1052.826759;
+        khip = 889.018371;
+        kknee = 470.096191;
+        kankle = 918.763522;
         
         % inertia of SEA
         bhip = 0.02;
