@@ -33,7 +33,11 @@ function dae2(daeh,x,z,u,p)
   M = SEA_model.M(params,x);
   h = SEA_model.h(params,x,z);
 
-  tau = K*(phi-q(5:10,:));
+  if flags.use_sea
+    tau = K*(phi-q(5:10,:));
+  else
+    tau = U;
+  end
   tau2 = [uw;tau];
   DAE1 = M*ddq -(S*tau2-h);
   DAE2 = B*ddphi - (U-tau);

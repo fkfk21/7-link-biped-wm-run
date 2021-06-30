@@ -6,7 +6,7 @@ function vars_base(vh)
   vh.addState('yb',  'lb',     0);
   vh.addState('thb', 'lb',  pi/6,'ub',         pi/2); % 腰角度
   if flags.use_wobbling_mass
-    vh.addState('lw',  'lb',     1/3*params.l7,'ub',2/3*params.l7); % 揺動質量
+    vh.addState('lw',  'lb',     1/4*params.l7,'ub',3/4*params.l7); % 揺動質量
   else
     vh.addState('lw',  'lb',     1/2*params.l7,'ub',1/2*params.l7); % 揺動質量
   end
@@ -16,12 +16,21 @@ function vars_base(vh)
   vh.addState('th4', 'lb',  pi*3/4,'ub',     3/2*pi);
   vh.addState('th5', 'lb', -pi*3/4,'ub',          0); % 膝角度
   vh.addState('th6', 'lb',  pi/4,'ub',       3/4*pi); % 足首角度
-  vh.addState('phi1');
-  vh.addState('phi2');
-  vh.addState('phi3');
-  vh.addState('phi4');
-  vh.addState('phi5');
-  vh.addState('phi6');
+  if flags.use_sea
+    vh.addState('phi1');
+    vh.addState('phi2');
+    vh.addState('phi3');
+    vh.addState('phi4');
+    vh.addState('phi5');
+    vh.addState('phi6');
+  else
+    vh.addState('phi1', 'lb', 0,'ub', 0);
+    vh.addState('phi2', 'lb', 0,'ub', 0);
+    vh.addState('phi3', 'lb', 0,'ub', 0);
+    vh.addState('phi4', 'lb', 0,'ub', 0);
+    vh.addState('phi5', 'lb', 0,'ub', 0);
+    vh.addState('phi6', 'lb', 0,'ub', 0);
+  end    
   % diff
   vh.addState('dxb');
   vh.addState('dyb');

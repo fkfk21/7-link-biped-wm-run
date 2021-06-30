@@ -58,6 +58,8 @@ classdef Result
     state_size
     control_size
     algvars_size
+    v
+    period
   end
   methods
     function obj = Result(sol, times, flags)
@@ -121,8 +123,6 @@ classdef Result
         obj.pjx = [obj.pjx, pj(:,1)];
         obj.pjy = [obj.pjy, pj(:,2)];
       end
-      steps = sol{1}.parameters.p3.value;
-      obj.step = steps(1);
       if obj.flags.optimize_k
         khips = sol{1}.states.khip.value; obj.khip = khips(1);
         kknees = sol{1}.states.kknee.value; obj.kknee = kknees(1);
@@ -131,7 +131,11 @@ classdef Result
       if obj.flags.optimize_mw
         mws = sol{1}.states.mw.value; obj.mw = mws(1);
       end
-      
+
+      obj.period = obj.time(end);
+      obj.v = (obj.xb(end)-obj.xb(1))/obj.period;
+      obj.step = obj.v*obj.period;
+
       % ダブり要素の削除
       del = [obj.state_size(1) sum(obj.state_size(1:2))];
       obj.xb(del) = []; obj.yb(del) = []; obj.thb(del) = []; obj.lw(del) = [];

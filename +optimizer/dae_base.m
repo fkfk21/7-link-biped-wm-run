@@ -16,21 +16,12 @@ function dae_base(daeh, x, z, u, p)
   daeh.setODE('th4'   , x.dth4  );
   daeh.setODE('th5'   , x.dth5  );
   daeh.setODE('th6'   , x.dth6  );
-  if flags.use_sea
-    daeh.setODE('phi1'  , x.dphi1 );
-    daeh.setODE('phi2'  , x.dphi2 );
-    daeh.setODE('phi3'  , x.dphi3 );
-    daeh.setODE('phi4'  , x.dphi4 );
-    daeh.setODE('phi5'  , x.dphi5 );
-    daeh.setODE('phi6'  , x.dphi6 );
-  else
-    daeh.setODE('phi1'  , x.dth1 );
-    daeh.setODE('phi2'  , x.dth2 );
-    daeh.setODE('phi3'  , x.dth3 );
-    daeh.setODE('phi4'  , x.dth4 );
-    daeh.setODE('phi5'  , x.dth5 );
-    daeh.setODE('phi6'  , x.dth6 );
-  end
+  daeh.setODE('phi1'  , x.dphi1 );
+  daeh.setODE('phi2'  , x.dphi2 );
+  daeh.setODE('phi3'  , x.dphi3 );
+  daeh.setODE('phi4'  , x.dphi4 );
+  daeh.setODE('phi5'  , x.dphi5 );
+  daeh.setODE('phi6'  , x.dphi6 );
   daeh.setODE('dxb'   , z.ddxb  );
   daeh.setODE('dyb'   , z.ddyb  );
   daeh.setODE('dthb'  , z.ddthb );
@@ -45,21 +36,12 @@ function dae_base(daeh, x, z, u, p)
   daeh.setODE('dth4'  , z.ddth4 );
   daeh.setODE('dth5'  , z.ddth5 );
   daeh.setODE('dth6'  , z.ddth6 );
-  if flags.use_sea
-    daeh.setODE('dphi1' , z.ddphi1);
-    daeh.setODE('dphi2' , z.ddphi2);
-    daeh.setODE('dphi3' , z.ddphi3);
-    daeh.setODE('dphi4' , z.ddphi4);
-    daeh.setODE('dphi5' , z.ddphi5);
-    daeh.setODE('dphi6' , z.ddphi6);
-  else
-    daeh.setODE('dphi1' , z.ddth1);
-    daeh.setODE('dphi2' , z.ddth2);
-    daeh.setODE('dphi3' , z.ddth3);
-    daeh.setODE('dphi4' , z.ddth4);
-    daeh.setODE('dphi5' , z.ddth5);
-    daeh.setODE('dphi6' , z.ddth6);
-  end
+  daeh.setODE('dphi1' , z.ddphi1);
+  daeh.setODE('dphi2' , z.ddphi2);
+  daeh.setODE('dphi3' , z.ddphi3);
+  daeh.setODE('dphi4' , z.ddphi4);
+  daeh.setODE('dphi5' , z.ddphi5);
+  daeh.setODE('dphi6' , z.ddphi6);
   daeh.setODE('time'  , 1       );
   if flags.optimize_k
     daeh.setODE('khip'  , 0);

@@ -36,7 +36,11 @@ function dae3(daeh,x,z,u,p)
   Jc2 = SEA_model.Jc2(params,x);
   dJc2 = SEA_model.dJc2(params,x);
 
-  tau = K*(phi-q(5:10,:));
+  if flags.use_sea
+    tau = K*(phi-q(5:10,:));
+  else
+    tau = U;
+  end
   tau2 = [uw;tau];
   DAE1 = [M,-Jc2.'; Jc2,zeros(3,3)]*[ddq;F2] - [S*tau2-h; -dJc2*dq];
   DAE2 = B*ddphi - (U-tau);

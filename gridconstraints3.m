@@ -33,7 +33,7 @@ function gridconstraints3(conh, k, K, x, p)
         ];
       reset_map2 = blkdiag(eye(4),reset_map1,reset_map1);
       reset_map = blkdiag(reset_map2,reset_map2);
-      conh.add([q;phi;dq;dphi],'==',reset_map*[q0;phi0;dq0;dphi0]+[p.p3;zeros(31,1)]);
+      conh.add([q;phi;dq;dphi],'==',reset_map*[q0;phi0;dq0;dphi0]+[x.time*v;zeros(31,1)]);
   end
   
   % 滑らか制約
