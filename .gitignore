@@ -1,4 +1,7 @@
 *.asv
+*.mp4
+*.avi
+*.png
 +results/
 +SEA_model/
 +console/

@@ -55,11 +55,19 @@ classdef Result
     f2y
     f2th
     flags
+    state_size
+    control_size
+    algvars_size
   end
   methods
     function obj = Result(sol, times, flags)
       obj.flags = flags;
+      obj.state_size = zeros(1,length(sol));
+      obj.control_size = zeros(1,length(sol));
       for i=1:length(sol)
+        s = sol{i}.states.size; obj.state_size(i) = s(2);
+        s = sol{i}.controls.size; obj.control_size(i) = s(2);
+        s = sol{i}.integrator.algvars.size; obj.algvars_size(i) = s(2);
         obj.xb = [obj.xb, sol{i}.states.xb.value];
         obj.yb = [obj.yb, sol{i}.states.yb.value];
         obj.thb = [obj.thb, sol{i}.states.thb.value];
@@ -123,6 +131,23 @@ classdef Result
       if obj.flags.optimize_mw
         mws = sol{1}.states.mw.value; obj.mw = mws(1);
       end
+      
+      % ダブり要素の削除
+      del = [obj.state_size(1) sum(obj.state_size(1:2))];
+      obj.xb(del) = []; obj.yb(del) = []; obj.thb(del) = []; obj.lw(del) = [];
+      obj.th1(del) = []; obj.th2(del) = []; obj.th3(del) = [];
+      obj.th4(del) = []; obj.th5(del) = []; obj.th6(del) = [];
+      obj.phi1(del) = []; obj.phi2(del) = []; obj.phi3(del) = [];
+      obj.phi4(del) = []; obj.phi5(del) = []; obj.phi6(del) = [];
+      obj.dxb(del) = []; obj.dyb(del) = []; obj.dthb(del) = []; obj.dlw(del) = [];
+      obj.dth1(del) = []; obj.dth2(del) = []; obj.dth3(del) = [];
+      obj.dth4(del) = []; obj.dth5(del) = []; obj.dth6(del) = [];
+      obj.dphi1(del) = []; obj.dphi2(del) = []; obj.dphi3(del) = [];
+      obj.dphi4(del) = []; obj.dphi5(del) = []; obj.dphi6(del) = [];
+      obj.pjx(:,del) = []; obj.pjy(:,del) = []; 
+      obj.time(del) = [];
+      obj.state_size = obj.state_size - [0 1 1];
+      
     end
     function pj = calc_pj(obj, k)
         q = [obj.xb(k);obj.yb(k);obj.thb(k);obj.lw(k); ...
@@ -151,8 +176,7 @@ classdef Result
         pj(10,:) = pb      + (params.l7 - lwm    )  * [cos(th_abs(7)) sin(th_abs(7))];
     end
     
-    function draw_line(obj, k)
-        color = [0.6, 0.3, 0];
+    function draw_line(obj, k, color)
         l1 = line([obj.xb(k)   ,obj.pjx(1,k)],[obj.yb(k)   ,obj.pjy(1,k)],'Color', color);
         l2 = line([obj.pjx(1,k),obj.pjx(2,k)],[obj.pjy(1,k),obj.pjy(2,k)],'Color', color);
         l3 = line([obj.pjx(3,k),obj.pjx(4,k)],[obj.pjy(3,k),obj.pjy(4,k)],'Color', color);

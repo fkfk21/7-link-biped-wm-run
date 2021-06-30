@@ -10,7 +10,7 @@ function gridconstraints3(conh, k, K, x, p)
   [q, dq, phi, dphi] = utils.decompose_state(x);
   pj = SEA_model.pj(params,x);
   dpj = SEA_model.dpj(params,x);
-  gridconstraints_base(conh, q, phi, pj, dpj);
+  gridconstraints_base(conh, q, phi, pj, dpj, x);
 
   % 各関節が地面より上(y座標制約)
   conh.add(pj(1,2),'>=',0);
@@ -26,8 +26,6 @@ function gridconstraints3(conh, k, K, x, p)
   if k == K
       conh.add(dpj(6,2),'<=',0); %脚交換制約
       conh.add((q(1)-q0(1))/x.time,'==',v); %速度制約
-      conh.add(q(1)-q0(1),'==',p.p3); % 歩幅制約
-      %conh.add(q(1) , '>=', p.p3*0.7);
       % reset map
       reset_map1 = [
         zeros(3),eye(3);

@@ -8,7 +8,7 @@ function gridconstraints2(conh, k, K, x, p)
   [q, ~, phi, ~] = utils.decompose_state(x);
   pj = SEA_model.pj(params,x);
   dpj = SEA_model.dpj(params,x);
-  gridconstraints_base(conh, q, phi, pj, dpj);
+  gridconstraints_base(conh, q, phi, pj, dpj, x);
 
   % 各関節が地面より上(y座標制約)
   conh.add(pj(1,2),'>=',0);
