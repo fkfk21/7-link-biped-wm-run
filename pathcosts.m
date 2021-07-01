@@ -14,9 +14,9 @@ function pathcosts(ch, x, z, u, p)
   end
   g = 9.80665;
   if flags.use_sea
-    ch.add(abs(dphi.*U)/(M*g*v));
+    ch.add(sum(abs(dphi.*U))/(M*g*v));
   else
-    ch.add(abs(dth.*U)/(M*g*v));
+    ch.add(sum(abs(dth.*U))/(M*g*v));
   end
 
   fprintf('pathcosts             complete : %.2f seconds\n',toc);

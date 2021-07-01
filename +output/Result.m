@@ -41,6 +41,7 @@ classdef Result
     uw
     time
     control_time
+    algvars_time
     pjx
     pjy
     step
@@ -60,12 +61,15 @@ classdef Result
     algvars_size
     v
     period
+    objective
+    sr
   end
   methods
-    function obj = Result(sol, times, flags)
+    function obj = Result(sol, times, flags, sol_info)
       obj.flags = flags;
       obj.state_size = zeros(1,length(sol));
       obj.control_size = zeros(1,length(sol));
+      obj.algvars_size = zeros(1, length(sol));
       for i=1:length(sol)
         s = sol{i}.states.size; obj.state_size(i) = s(2);
         s = sol{i}.controls.size; obj.control_size(i) = s(2);
@@ -116,7 +120,15 @@ classdef Result
         obj.f2x = [obj.f2x, sol{i}.integrator.algvars.f2x.value];
         obj.f2y = [obj.f2y, sol{i}.integrator.algvars.f2y.value];
         obj.f2th = [obj.f2th, sol{i}.integrator.algvars.f2th.value];
-        obj.control_time = [obj.control_time, times{i}.controls.value];
+      end
+      for i=1:length(sol)
+        if i == 1
+          obj.control_time = times{i}.controls.value;
+          obj.algvars_time = reshape(times{i}.integrator.value,1,[]);
+        else
+          obj.control_time = [obj.control_time, obj.control_time(end)+times{i}.controls.value];
+          obj.algvars_time = [obj.algvars_time, obj.algvars_time(end)+reshape(times{i}.integrator.value,1,[])];
+        end
       end
       for k=1:length(obj.time)
         pj = calc_pj(obj, k);
@@ -135,6 +147,9 @@ classdef Result
       obj.period = obj.time(end);
       obj.v = (obj.xb(end)-obj.xb(1))/obj.period;
       obj.step = obj.v*obj.period;
+      
+      obj.objective = sol_info.ipopt_stats.iterations.obj(end);
+      obj.sr = obj.objective/obj.period;
 
       % ダブり要素の削除
       del = [obj.state_size(1) sum(obj.state_size(1:2))];
@@ -152,6 +167,17 @@ classdef Result
       obj.time(del) = [];
       obj.state_size = obj.state_size - [0 1 1];
       
+      del = [obj.control_size(1) sum(obj.control_size(1:2))];
+      obj.u1(del) = []; obj.u2(del) = []; obj.u3(del) = [];
+      obj.u4(del) = []; obj.u5(del) = []; obj.u6(del) = [];
+      obj.uw(del) = []; obj.control_time(del) = [];
+      obj.control_size = obj.control_size - [0 1 1];
+      
+      del = [obj.algvars_size(1) sum(obj.algvars_size(1:2))];
+      obj.f1x(del) = []; obj.f1y(del) = []; obj.f1th(del) = [];
+      obj.f2x(del) = []; obj.f2y(del) = []; obj.f2th(del) = [];
+      obj.algvars_time(del) = [];
+      obj.algvars_size = obj.algvars_size - [0 1 1];
     end
     function pj = calc_pj(obj, k)
         q = [obj.xb(k);obj.yb(k);obj.thb(k);obj.lw(k); ...
