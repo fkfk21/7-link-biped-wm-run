@@ -8,8 +8,13 @@ for i=1:6
   plot(result.control_time, u(i,:));
 end
 legend('u1','u2','u3','u4','u5','u6');
+xlabel('time [t]'); ylabel('u [Nm]');
+result.separate_background_with_section('control');
 
 subplot(2,1,2);
 plot(result.control_time, result.uw);
 title('uw');
+xlabel('time [t]'); ylabel('u_w [N]');
+result.separate_background_with_section('control');
+
 end

@@ -163,15 +163,17 @@ classdef Result
       obj.dth4(del) = []; obj.dth5(del) = []; obj.dth6(del) = [];
       obj.dphi1(del) = []; obj.dphi2(del) = []; obj.dphi3(del) = [];
       obj.dphi4(del) = []; obj.dphi5(del) = []; obj.dphi6(del) = [];
-      obj.pjx(:,del) = []; obj.pjy(:,del) = []; 
+      obj.pjx(:,del) = []; obj.pjy(:,del) = [];
       obj.time(del) = [];
       obj.state_size = obj.state_size - [0 1 1];
+      
       
       del = [obj.control_size(1) sum(obj.control_size(1:2))];
       obj.u1(del) = []; obj.u2(del) = []; obj.u3(del) = [];
       obj.u4(del) = []; obj.u5(del) = []; obj.u6(del) = [];
       obj.uw(del) = []; obj.control_time(del) = [];
       obj.control_size = obj.control_size - [0 1 1];
+      
       
       del = [obj.algvars_size(1) sum(obj.algvars_size(1:2))];
       obj.f1x(del) = []; obj.f1y(del) = []; obj.f1th(del) = [];
@@ -215,6 +217,26 @@ classdef Result
         l6 = line([obj.pjx(7,k),obj.pjx(8,k)],[obj.pjy(7,k),obj.pjy(8,k)],'Color', color);
         l7 = line([obj.xb(k)   ,obj.pjx(9,k)],[obj.yb(k)   ,obj.pjy(9,k)],'Color', color);
         l8 = plot(obj.pjx(10,k),obj.pjy(10,k),'o','Color',color,'MarkerSize',10);
+    end
+    
+    function separate_background_with_section(obj, version)
+        if strcmp(version, 'state')
+          idx = [1 obj.state_size(1) sum(obj.state_size(1:2)) sum(obj.state_size)];
+          section = obj.time(idx);
+        elseif strcmp(version, 'control')
+          idx = [1 obj.control_size(1) sum(obj.control_size(1:2)) sum(obj.control_size)];
+          section = obj.control_time(idx);
+        elseif strcmp(version, 'algvars')
+          idx = [1 obj.algvars_size(1) sum(obj.algvars_size(1:2))-1 sum(obj.algvars_size)];
+          section = obj.algvars_time(idx);
+        else
+          throw('Invalid Argument of Version');
+        end
+        color = {[1 1 1], [0.2 0.2 0.2]};
+        %color = {'r', 'b'};
+        utils.back_coloring(section(1:2), color{1});
+        utils.back_coloring(section(2:3), color{2});
+        utils.back_coloring([section(3), inf], color{1});
     end
   end
   

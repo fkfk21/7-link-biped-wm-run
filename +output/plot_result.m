@@ -1,6 +1,8 @@
 function plot_result(result)
 close all;
 
+%default_color = get(0, 'DefaultFigureColor');
+%set(0, 'DefaultFigureColor', 'w');
 % plot lw
 output.plot.lw(result);
 
@@ -21,5 +23,7 @@ output.plot.force(result);
 
 % print params
 output.print_param(result);
+
+%set(0, 'DefaultFigureColor', default_color);
 
 end
