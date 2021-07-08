@@ -11,6 +11,11 @@ xlim([-1.0 result.step*loop+0.5])
 formatSpec = 'time: %.4f';
 title_handle = title(sprintf(formatSpec, 0.0));
 
+f_max = max([result.f1x result.f1y result.f2x result.f2y]);
+f1 = quiver(0, 0, 0, 0, 'LineWidth', 3, 'AutoScaleFactor', 1/f_max);
+f2 = quiver(0, 0, 0, 0, 'LineWidth', 3, 'AutoScaleFactor', 1/f_max);
+
+
 rate = 60;
 v_period = 1/rate*playratio;
 set(0, 'DefaultLineLineWidth', 2);
@@ -40,8 +45,9 @@ for n=1:loop
   % time = times.states.value;
   time =  result.time;
   step = result.step;
-
+  
   k = 1;
+  k2 = 1;
   for t = 0:v_period:time(end)
       q = [xb(k)+(n-1)*step;yb(k);thb(k);lw(k);th1(k);th2(k);th3(k);th4(k);th5(k);th6(k)];
       th_abs = [
@@ -83,6 +89,10 @@ for n=1:loop
       while(t>=time(k))
         k = k + 1;
       end
+      % 現在時刻がresult.algvars_time(k2)を上回ったらk2をインクリメント
+      while(t>=result.algvars_time(k2))
+        k2 = k2 + 1;
+      end
       
       tic;
       hold on;
@@ -93,7 +103,12 @@ for n=1:loop
       l5 = line([pj(5,1),pj(6,1)],[pj(5,2),pj(6,2)]);
       l6 = line([pj(7,1),pj(8,1)],[pj(7,2),pj(8,2)]);
       l7 = line([q(1)   ,pj(9,1)],[q(2)   ,pj(9,2)]);
-      l8 = plot(pj(10,1),pj(10,2),'o','color',[38,124,185]/255,'MarkerSize',6);
+      l8 = plot(pj(10,1),pj(10,2),'o','color',[38,124,185]/255,'MarkerSize',7);
+      f1.XData = pj(2,1); f1.YData = pj(2,2);
+      f1.UData = result.f1x(k2); f1.VData = result.f1y(k2);
+      f2.XData = pj(6,1); f2.YData = pj(6,2);
+      f2.UData = result.f2x(k2); f2.VData = result.f2y(k2);
+      
     %   l8 = line([pj(10,1),pj(10,1)],[pj(10,2),pj(10,2)],'marker','o');
       %pause(0.3)
       title_handle.String = sprintf(formatSpec, t+time(end)*(n-1));

@@ -3,5 +3,6 @@
 *.avi
 *.png
 +results/
++for_slide_result/
 +SEA_model/
 +console/
