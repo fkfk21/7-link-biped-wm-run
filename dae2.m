@@ -13,8 +13,8 @@ function dae2(daeh,x,z,u,p)
 
   U = [u.u1; u.u2; u.u3; u.u4; u.u5; u.u6;];
 
-  F1 = [z.f1x; z.f1y; z.f1th];
-  F2 = [z.f2x; z.f2y; z.f2th];
+  F1 = [z.f1x; z.f1y];
+  F2 = [z.f2x; z.f2y];
   
   if flags.optimize_k
     % spring sttifness of SEA
@@ -62,10 +62,8 @@ function dae2(daeh,x,z,u,p)
   daeh.setAlgEquation(DAE2(6));
   daeh.setAlgEquation(DAE3(1));
   daeh.setAlgEquation(DAE3(2));
-  daeh.setAlgEquation(DAE3(3));
   daeh.setAlgEquation(DAE4(1));
   daeh.setAlgEquation(DAE4(2));
-  daeh.setAlgEquation(DAE4(3));
   
   fprintf('dae2                   complete : %.2f seconds\n',toc);
 end

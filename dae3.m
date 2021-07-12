@@ -13,8 +13,8 @@ function dae3(daeh,x,z,u,p)
 
   U = [u.u1; u.u2; u.u3; u.u4; u.u5; u.u6;];
 
-  F1 = [z.f1x; z.f1y; z.f1th];
-  F2 = [z.f2x; z.f2y; z.f2th];
+  F1 = [z.f1x; z.f1y];
+  F2 = [z.f2x; z.f2y];
 
   if flags.optimize_k
     % spring sttifness of SEA
@@ -42,7 +42,7 @@ function dae3(daeh,x,z,u,p)
     tau = U;
   end
   tau2 = [uw;tau];
-  DAE1 = [M,-Jc2.'; Jc2,zeros(3,3)]*[ddq;F2] - [S*tau2-h; -dJc2*dq];
+  DAE1 = [M,-Jc2.'; Jc2,zeros(2,2)]*[ddq;F2] - [S*tau2-h; -dJc2*dq];
   DAE2 = B*ddphi - (U-tau);
   DAE3 = F1;
   
@@ -58,7 +58,6 @@ function dae3(daeh,x,z,u,p)
   daeh.setAlgEquation(DAE1(10));
   daeh.setAlgEquation(DAE1(11));
   daeh.setAlgEquation(DAE1(12));
-  daeh.setAlgEquation(DAE1(13));
   daeh.setAlgEquation(DAE2(1));
   daeh.setAlgEquation(DAE2(2));
   daeh.setAlgEquation(DAE2(3));
@@ -67,7 +66,6 @@ function dae3(daeh,x,z,u,p)
   daeh.setAlgEquation(DAE2(6));
   daeh.setAlgEquation(DAE3(1));
   daeh.setAlgEquation(DAE3(2));
-  daeh.setAlgEquation(DAE3(3));
   
   fprintf('dae3                   complete : %.2f seconds\n',toc);
 end

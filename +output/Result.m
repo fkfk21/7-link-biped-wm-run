@@ -51,10 +51,8 @@ classdef Result
     mw
     f1x
     f1y
-    f1th
     f2x
     f2y
-    f2th
     flags
     state_size
     control_size
@@ -117,10 +115,8 @@ classdef Result
         obj.uw = [obj.uw, sol{i}.controls.uw.value];
         obj.f1x = [obj.f1x, sol{i}.integrator.algvars.f1x.value];
         obj.f1y = [obj.f1y, sol{i}.integrator.algvars.f1y.value];
-        obj.f1th = [obj.f1th, sol{i}.integrator.algvars.f1th.value];
         obj.f2x = [obj.f2x, sol{i}.integrator.algvars.f2x.value];
         obj.f2y = [obj.f2y, sol{i}.integrator.algvars.f2y.value];
-        obj.f2th = [obj.f2th, sol{i}.integrator.algvars.f2th.value];
       end
       for i=1:length(sol)
         if i == 1
@@ -179,8 +175,8 @@ classdef Result
       
       
       del = [obj.algvars_size(1) sum(obj.algvars_size(1:2))];
-      obj.f1x(del) = []; obj.f1y(del) = []; obj.f1th(del) = [];
-      obj.f2x(del) = []; obj.f2y(del) = []; obj.f2th(del) = [];
+      obj.f1x(del) = []; obj.f1y(del) = [];
+      obj.f2x(del) = []; obj.f2y(del) = [];
       obj.algvars_time(del) = [];
       obj.algvars_size = obj.algvars_size - [0 1 1];
     end
