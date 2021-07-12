@@ -63,6 +63,7 @@ classdef Result
     period
     objective
     sr
+    solve_time
   end
   methods
     function obj = Result(sol, times, flags, sol_info)
@@ -150,6 +151,8 @@ classdef Result
       
       obj.objective = sol_info.ipopt_stats.iterations.obj(end);
       obj.sr = obj.objective/obj.period;
+      
+      obj.solve_time = sol_info.timeMeasures.solveTotal;
 
       % ダブり要素の削除
       del = [obj.state_size(1) sum(obj.state_size(1:2))];

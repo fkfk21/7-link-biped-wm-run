@@ -13,8 +13,8 @@ function vars_base(vh)
   vh.addState('th1');
   vh.addState('th2', 'lb', -pi/2,'ub',            0); % 膝角度
   vh.addState('th3', 'lb',  pi/4,'ub',       3/4*pi); % 足首角度 
-  vh.addState('th4', 'lb',  pi*3/4,'ub',     3/2*pi);
-  vh.addState('th5', 'lb', -pi*3/4,'ub',          0); % 膝角度
+  vh.addState('th4', 'lb',  pi,'ub',     (2-1/4)*pi);
+  vh.addState('th5', 'lb', -pi,'ub',          0); % 膝角度
   vh.addState('th6', 'lb',  pi/4,'ub',       3/4*pi); % 足首角度
   if flags.use_sea
     vh.addState('phi1');
@@ -46,12 +46,12 @@ function vars_base(vh)
   vh.addState('dth4');
   vh.addState('dth5');
   vh.addState('dth6');
-  vh.addState('dphi1', 'lb',-30, 'ub',30);
-  vh.addState('dphi2', 'lb',-30, 'ub',30);
-  vh.addState('dphi3', 'lb',-30, 'ub',30);
-  vh.addState('dphi4', 'lb',-30, 'ub',30);
-  vh.addState('dphi5', 'lb',-30, 'ub',30);
-  vh.addState('dphi6', 'lb',-30, 'ub',30);
+  vh.addState('dphi1', 'lb',-20, 'ub',20);
+  vh.addState('dphi2', 'lb',-20, 'ub',20);
+  vh.addState('dphi3', 'lb',-20, 'ub',20);
+  vh.addState('dphi4', 'lb',-20, 'ub',20);
+  vh.addState('dphi5', 'lb',-20, 'ub',20);
+  vh.addState('dphi6', 'lb',-20, 'ub',20);
   % time
   vh.addState('time'  ,'lb',0);
   % params
@@ -85,12 +85,12 @@ function vars_base(vh)
 
 
   % Control u
-  vh.addControl('u1','lb',-300,'ub',300);
-  vh.addControl('u2','lb',-300,'ub',300);
-  vh.addControl('u3','lb',-300,'ub',300);
-  vh.addControl('u4','lb',-300,'ub',300);
-  vh.addControl('u5','lb',-300,'ub',300);
-  vh.addControl('u6','lb',-300,'ub',300);
+  vh.addControl('u1','lb',-150,'ub',150);
+  vh.addControl('u2','lb',-100,'ub',100);
+  vh.addControl('u3','lb', -30,'ub', 30);
+  vh.addControl('u4','lb',-150,'ub',150);
+  vh.addControl('u5','lb',-100,'ub',100);
+  vh.addControl('u6','lb', -30,'ub', 30);
   if flags.use_wobbling_mass
     vh.addControl('uw','lb',-100,'ub',100);
   else

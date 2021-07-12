@@ -7,7 +7,7 @@ plot([-10 10],[0 0],'k')
 hold on
 axis equal
 ylim([-0.2 1.8])
-xlim([-1.0 result.step*loop+0.5])
+xlim([-0.5 result.step*loop+0.5])
 formatSpec = 'time: %.4f';
 title_handle = title(sprintf(formatSpec, 0.0));
 
@@ -104,11 +104,12 @@ for n=1:loop
       l6 = line([pj(7,1),pj(8,1)],[pj(7,2),pj(8,2)]);
       l7 = line([q(1)   ,pj(9,1)],[q(2)   ,pj(9,2)]);
       l8 = plot(pj(10,1),pj(10,2),'o','color',[38,124,185]/255,'MarkerSize',7);
+      %{
       f1.XData = pj(2,1); f1.YData = pj(2,2);
       f1.UData = result.f1x(k2); f1.VData = result.f1y(k2);
       f2.XData = pj(6,1); f2.YData = pj(6,2);
       f2.UData = result.f2x(k2); f2.VData = result.f2y(k2);
-      
+      %}
     %   l8 = line([pj(10,1),pj(10,1)],[pj(10,2),pj(10,2)],'marker','o');
       %pause(0.3)
       title_handle.String = sprintf(formatSpec, t+time(end)*(n-1));
