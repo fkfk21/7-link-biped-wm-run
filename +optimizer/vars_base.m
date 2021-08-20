@@ -4,14 +4,14 @@ function vars_base(vh)
   % State x
   vh.addState('xb');
   vh.addState('yb',  'lb',     0);
-  vh.addState('thb', 'lb',  pi/6,'ub',         pi/2); % 腰角度
+  vh.addState('thb', 'lb',  pi/4,'ub',         pi/2); % 腰角度
   if flags.use_wobbling_mass
-    vh.addState('lw',  'lb',     0.4*params.l7,'ub',0.6*params.l7); % 揺動質量
+    vh.addState('lw',  'lb',     0.3*params.l7,'ub',0.7*params.l7); % 揺動質量
   else
     vh.addState('lw',  'lb',     1/2*params.l7,'ub',1/2*params.l7); % 揺動質量
   end
-  vh.addState('th1');
-  vh.addState('th2', 'lb', -pi/2,'ub',            0); % 膝角度
+  vh.addState('th1', 'lb',  pi,'ub',     (2-1/4)*pi);
+  vh.addState('th2', 'lb', -pi,'ub',            0); % 膝角度
   vh.addState('th3', 'lb',  pi/4,'ub',       3/4*pi); % 足首角度 
   vh.addState('th4', 'lb',  pi,'ub',     (2-1/4)*pi);
   vh.addState('th5', 'lb', -pi,'ub',          0); % 膝角度

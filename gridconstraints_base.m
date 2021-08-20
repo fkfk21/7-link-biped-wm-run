@@ -3,7 +3,7 @@
 
 function gridconstraints_base(conh, q, phi, pj, dpj, x)
 
-  global step flags
+  global flags
   
   if flags.use_sea
     % thetaとphiが離れすぎない(バネの伸びに関する制約)
@@ -16,6 +16,6 @@ function gridconstraints_base(conh, q, phi, pj, dpj, x)
   conh.add(x.dxb, '>=', 0);
   
   % 仮想障害物の回避
-  conh.add((pj(6,1)-step/2)^2+pj(6,2)^2,'>=',(0.01)^2);
+  conh.add((pj(6,1)-0.2)^2+pj(6,2)^2,'>=',(0.02)^2);
   
 end

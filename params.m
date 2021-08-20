@@ -54,9 +54,9 @@ classdef params
         S = [zeros(3,7);eye(7)];
         
         % spring sttifness of SEA
-        khip =  888;
-        kknee = 1149;
-        kankle = 861;
+        khip =  877;
+        kknee = 1009;
+        kankle = 785;
         
         % inertia of SEA
         bhip = 0.02;

@@ -23,8 +23,10 @@ function gridconstraints3(conh, k, K, x, p)
   % 支持脚のx方向の停止
   conh.add(dpj(6,1), '==', 0);
 
+  % 遊脚前進制約
+  conh.add(dpj(2,1),'>=',0);
+  
   if k == K
-      conh.add(dpj(6,2),'<=',0); %脚交換制約
       conh.add((q(1)-q0(1))/x.time,'==',v); %速度制約
       % reset map
       reset_map1 = [

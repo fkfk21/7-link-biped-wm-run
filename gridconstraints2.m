@@ -19,6 +19,10 @@ function gridconstraints2(conh, k, K, x, p)
   conh.add(pj(7,2),'>=',0);
   conh.add(pj(8,2),'>=',0);
   
+  % 遊脚前進制約
+  conh.add(dpj(2,1),'>=',0);
+  conh.add(dpj(6,1),'>=',0);
+
   
   % 滑らか制約
   conh.add(ppphi-2*pphi+phi,'<=',2)

@@ -1,9 +1,8 @@
 function controls(result)
 figure;
-subplot(2,1,1);
 u = [result.u1; result.u2; result.u3; result.u4; result.u5; result.u6];
 hold on
-title('control');
+title('torque');
 for i=1:6
   plot(result.control_time, u(i,:));
 end
@@ -12,7 +11,7 @@ xlabel('time [t]'); ylabel('u [Nm]');
 ylim([-170, 170]);
 result.separate_background_with_section('control');
 
-subplot(2,1,2);
+figure;
 plot(result.control_time, result.uw);
 title('uw');
 xlabel('time [t]'); ylabel('u_w [N]');

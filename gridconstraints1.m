@@ -22,6 +22,10 @@ function gridconstraints1(conh, k, K, x, p)
   % 支持脚位置固定
   conh.add(pj(2,1),'==',0); % 支持脚
   
+  % 遊脚前進制約
+  conh.add(dpj(6,1),'>=',0);
+
+  
   if k == 1
       conh.add(dpj(6,2),'>=',0); %脚交換制約
       q0 = q;

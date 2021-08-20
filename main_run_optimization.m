@@ -2,15 +2,15 @@ close all;
 clc;
 clear;
 global v step flags
-v = 2.8;
-step = 1.1;
+v = 3.1;
+step = 0.95;
 period = step/v;
 
 flags = Flags;
 flags.use_sea = true;
 flags.use_wobbling_mass = true;
-flags.optimize_mw = true;
-flags.optimize_k = true;
+flags.optimize_mw = false;
+flags.optimize_k = false;
 flags.check()
 
 
@@ -40,7 +40,7 @@ mode3 = ocl.Stage( ...
   'gridconstraints', @gridconstraints3, ...
   'N', 8, 'd', 3);
 
-%{
+
 %                        1end      2end
 period_bound = period*[0.2, 0.5, 0.6, 0.9];
 mode1.setInitialStateBounds('time', 0);
@@ -49,8 +49,8 @@ mode2.setInitialStateBounds('time', period_bound(1), period_bound(2));
 mode2.setEndStateBounds('time', period_bound(3), period_bound(4));
 mode3.setInitialStateBounds('time', period_bound(3), period_bound(4));
 mode3.setEndStateBounds('time', period*0.8, period*1.2);
-%}
-  
+
+
 ig.set_initial_guess(mode1, mode2, mode3, period);
 
 ocp = ocl.MultiStageProblem({mode1,mode2,mode3}, ...
