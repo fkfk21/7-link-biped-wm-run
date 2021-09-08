@@ -37,10 +37,10 @@ classdef params
         % distance from joint to CoM
         a1 = params.l1 / 2; %upper leg
         a2 = params.l2 / 2; %lower leg
-        a3 = params.l3 / 3; %foot
+        a3 = params.l3 / 4; %foot
         a4 = params.l4 / 2; %upper leg
         a5 = params.l5 / 2; %lower leg
-        a6 = params.l6 / 3; %foot
+        a6 = params.l6 / 4; %foot
         a7 = params.l7 / 2; %torso
 
         % distance from ankle to heel
