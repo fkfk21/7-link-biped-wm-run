@@ -19,7 +19,7 @@ output.plot.theta_phi(result);
 output.plot.controls(result);
 
 % plot force
-%output.plot.force(result);
+output.plot.force(result);
 
 % print params
 output.print_param(result);
