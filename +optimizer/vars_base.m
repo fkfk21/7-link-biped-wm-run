@@ -10,11 +10,11 @@ function vars_base(vh)
   else
     vh.addState('lw',  'lb',     1/2*params.l7,'ub',1/2*params.l7); % 揺動質量
   end
-  vh.addState('th1', 'lb',  pi,'ub',     (2-1/4)*pi);
-  vh.addState('th2', 'lb', -pi,'ub',            0); % 膝角度
+  vh.addState('th1', 'lb',  pi,'ub',     3/2*pi);
+  vh.addState('th2', 'lb', -3/4*pi,'ub',            0); % 膝角度
   vh.addState('th3', 'lb',  pi/4,'ub',       3/4*pi); % 足首角度 
-  vh.addState('th4', 'lb',  pi,'ub',     (2-1/4)*pi);
-  vh.addState('th5', 'lb', -pi,'ub',          0); % 膝角度
+  vh.addState('th4', 'lb',  pi,'ub',     7/4*pi);
+  vh.addState('th5', 'lb', -3/4*pi,'ub',          0); % 膝角度
   vh.addState('th6', 'lb',  pi/4,'ub',       3/4*pi); % 足首角度
   if flags.use_sea
     vh.addState('phi1');
@@ -85,12 +85,12 @@ function vars_base(vh)
 
 
   % Control u
-  vh.addControl('u1','lb',-150,'ub',150);
-  vh.addControl('u2','lb',-100,'ub',100);
-  vh.addControl('u3','lb', -30,'ub', 30);
-  vh.addControl('u4','lb',-150,'ub',150);
-  vh.addControl('u5','lb',-100,'ub',100);
-  vh.addControl('u6','lb', -30,'ub', 30);
+  vh.addControl('u1','lb',-300,'ub',300);
+  vh.addControl('u2','lb',-200,'ub',200);
+  vh.addControl('u3','lb',-100,'ub',100);
+  vh.addControl('u4','lb',-300,'ub',300);
+  vh.addControl('u5','lb',-200,'ub',200);
+  vh.addControl('u6','lb',-100,'ub',100);
   if flags.use_wobbling_mass
     vh.addControl('uw','lb',-100,'ub',100);
   else

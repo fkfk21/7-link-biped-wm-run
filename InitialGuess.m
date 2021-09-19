@@ -22,25 +22,20 @@ classdef InitialGuess
     mw
   end
   properties (Constant)
-    f1x =  [-40,  40, 0, 0,   0,   0]
-    f1y =  [300,   0, 0, 0,   0,   0]
-    f1th = [ 10,  10, 0, 0,   0,   0]
-    f2x =  [  0,   0, 0, 0,  40, -40]
-    f2y =  [  0,   0, 0, 0,   0, 300]
-    f2th = [  0,   0, 0, 0,  10,  10]
+    zmp_x = [0, params.l3-params.a3];
   end
   methods
     function ig = InitialGuess(step, draw)
-      ig.xb = [-step/4,step/4,step/2,step*3/4];
-      ig.yb = [sqrt(0.8^2-(step/4)^2),sqrt(0.8^2-(step/4)^2),sqrt(0.8^2-(step/4)^2)*1.2,sqrt(0.8^2-(step/4)^2)];
-      ig.thb = [pi/3,pi/3,pi/3,pi/3];
-      ig.lw = ones(1,4)*params.l7/2;
-      ig.th1 = [asin(step/4/0.8),-asin(step/4/0.8),-asin(step/4/0.8),-asin(step/4/0.8)]+(pi+(pi/2-ig.thb));
-      ig.th2 = [0,0,0,-pi/4];
-      ig.th3 = [acos(step/4/0.8),pi-acos(step/4/0.8),pi-acos(step/4/0.8),pi-acos(step/4/0.8)];
-      ig.th4 = [-asin(step/4/0.8),asin(step/4/0.8),asin(step/4/0.8),asin(step/4/0.8)]+(pi+(pi/2-ig.thb));
-      ig.th5 = [-pi/4,-pi/4,-pi/4,0];
-      ig.th6 = [pi-acos(step/4/0.8),acos(step/4/0.8),acos(step/4/0.8),acos(step/4/0.8)];
+      ig.xb = [-step/3,step/4,step*2/3];
+      ig.yb = [sqrt(0.8^2-(step/3)^2),sqrt(0.8^2-(step/4)^2),sqrt(0.8^2-(step/3)^2)];
+      ig.thb = [pi,pi,pi]*2/5;
+      ig.lw = ones(1,3)*params.l7/2;
+      ig.th1 = [asin(step/3/0.8),-asin(step/4/0.8),-asin(step/3/0.8)]+(pi+(pi/2-ig.thb));
+      ig.th2 = [0,0,-pi/4];
+      ig.th3 = [acos(step/3/0.8),pi-acos(step/4/0.8),pi-acos(step/3/0.8)];
+      ig.th4 = [-asin(step/3/0.8),asin(step/4/0.8)+pi/5,asin(step/3/0.8)]+(pi+(pi/2-ig.thb));
+      ig.th5 = [-pi/4,-pi*3/5,0];
+      ig.th6 = [pi-acos(step/3/0.8),acos(step/4/0.8),acos(step/3/0.8)];
       ig.phi1 = ig.th1;
       ig.phi2 = ig.th2;
       ig.phi3 = ig.th3;
@@ -103,14 +98,12 @@ classdef InitialGuess
       end
     end
     
-    function set_initial_guess(obj, mode1, mode2, mode3, period)
-      period1 = period*0.4;
-      period2 = period*0.4;
-      period3 = period*0.2;
-      period = [period1, period2, period3];
+    function set_initial_guess(obj, mode1, mode2, period)
+      period1 = period*0.5;
+      period2 = period*0.5;
+      period = [period1, period2];
       utils.set_initial_guess(mode1, 1, obj, period);
       utils.set_initial_guess(mode2, 2, obj, period);
-      utils.set_initial_guess(mode3, 3, obj, period);
     end
   end
 end

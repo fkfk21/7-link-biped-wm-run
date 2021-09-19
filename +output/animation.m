@@ -11,10 +11,6 @@ xlim([-0.5 result.step*loop+0.5])
 formatSpec = 'time: %.4f';
 title_handle = title(sprintf(formatSpec, 0.0));
 
-f_max = max([result.f1x result.f1y result.f2x result.f2y]);
-f1 = quiver(0, 0, 0, 0, 'LineWidth', 3, 'AutoScaleFactor', 1/f_max);
-f2 = quiver(0, 0, 0, 0, 'LineWidth', 3, 'AutoScaleFactor', 1/f_max);
-
 
 rate = 60;
 v_period = 1/rate*playratio;
@@ -73,6 +69,9 @@ for n=1:loop
       pj(9,:) = pb      +  params.l7              * [cos(th_abs(7)) sin(th_abs(7))]; %head
       pj(10,:) = pb      + (params.l7 - lwm    )  * [cos(th_abs(7)) sin(th_abs(7))];
 
+      pcom = result.calc_pcom(k)+[(n-1)*step, 0];
+      
+      zmp_x = result.zmp_x(k2) + (n-1)*step;
       if t > 0
           pause(v_period/playratio-toc);
           delete(l1);
@@ -83,6 +82,8 @@ for n=1:loop
           delete(l6);
           delete(l7);
           delete(l8);
+          delete(l9);
+          delete(l10);
       end
       
       % 現在時刻がtime(k)を上回ったらkをインクリメント
@@ -90,7 +91,7 @@ for n=1:loop
         k = k + 1;
       end
       % 現在時刻がresult.algvars_time(k2)を上回ったらk2をインクリメント
-      while(t>=result.algvars_time(k2))
+      while(t>=result.algvars_time(k2) && k2 < result.algvars_size(1))
         k2 = k2 + 1;
       end
       
@@ -104,6 +105,11 @@ for n=1:loop
       l6 = line([pj(7,1),pj(8,1)],[pj(7,2),pj(8,2)]);
       l7 = line([q(1)   ,pj(9,1)],[q(2)   ,pj(9,2)]);
       l8 = plot(pj(10,1),pj(10,2),'o','color',[38,124,185]/255,'MarkerSize',7);
+      if t < result.algvars_time(result.algvars_size(1))
+        l9 = plot(zmp_x, 0, 'o', 'color', 'r', 'MarkerSize', 2);
+      end
+      l10 = plot(pcom(1), pcom(2) ,'o','color','y','MarkerSize',5);
+      
       %{
       f1.XData = pj(2,1); f1.YData = pj(2,2);
       f1.UData = result.f1x(k2); f1.VData = result.f1y(k2);
@@ -128,6 +134,8 @@ for n=1:loop
     delete(l6);
     delete(l7);
     delete(l8);
+    delete(l9);
+    delete(l10);
   end
 end
   if save_video

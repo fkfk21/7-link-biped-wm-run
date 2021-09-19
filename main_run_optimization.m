@@ -2,19 +2,19 @@ close all;
 clc;
 clear;
 global v step flags
-v = 3.1;
-step = 0.95;
+v = 3.5;
+step = 0.8;
 period = step/v;
 
 flags = Flags;
 flags.use_sea = true;
 flags.use_wobbling_mass = true;
-flags.optimize_mw = false;
-flags.optimize_k = false;
+flags.optimize_mw = true;
+flags.optimize_k = true;
 flags.check()
 
 
-ig = InitialGuess(step, false);
+ig = InitialGuess(step, true);
 %ig.draw();
 
 
@@ -32,29 +32,20 @@ mode2 = ocl.Stage( ...
   'pathcosts', @pathcosts, ...
   'gridconstraints', @gridconstraints2, ...
   'N', 8, 'd', 3);
-mode3 = ocl.Stage( ...
-  [], ...
-  'vars', @vars3, ...
-  'dae', @dae3, ...
-  'pathcosts', @pathcosts, ...
-  'gridconstraints', @gridconstraints3, ...
-  'N', 8, 'd', 3);
 
 
-%                        1end      2end
-period_bound = period*[0.2, 0.5, 0.6, 0.9];
+%                        1end  
+period_bound = period*[0.3, 0.7];
 mode1.setInitialStateBounds('time', 0);
 mode1.setEndStateBounds('time', period_bound(1), period_bound(2));
 mode2.setInitialStateBounds('time', period_bound(1), period_bound(2));
-mode2.setEndStateBounds('time', period_bound(3), period_bound(4));
-mode3.setInitialStateBounds('time', period_bound(3), period_bound(4));
-mode3.setEndStateBounds('time', period*0.8, period*1.2);
+mode2.setEndStateBounds('time', period*0.8, period*1.2);
 
 
-ig.set_initial_guess(mode1, mode2, mode3, period);
+ig.set_initial_guess(mode1, mode2, period);
 
-ocp = ocl.MultiStageProblem({mode1,mode2,mode3}, ...
-                            {@trans_stand2float,@trans_float2stand});
+ocp = ocl.MultiStageProblem({mode1,mode2}, ...
+                            {@trans_stand2float});
 
 % save console log
 exe_time = now;

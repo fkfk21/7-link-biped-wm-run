@@ -39,22 +39,18 @@ classdef Result
     u5
     u6
     uw
+    zmp_x
     time
     control_time
     algvars_time
     pjx
     pjy
+    pcom
     step
     khip
     kknee
     kankle
     mw
-    f1x
-    f1y
-    f1th
-    f2x
-    f2y
-    f2th
     flags
     state_size
     control_size
@@ -115,13 +111,10 @@ classdef Result
         obj.u5 = [obj.u5, sol{i}.controls.u5.value];
         obj.u6 = [obj.u6, sol{i}.controls.u6.value];
         obj.uw = [obj.uw, sol{i}.controls.uw.value];
-        obj.f1x = [obj.f1x, sol{i}.integrator.algvars.f1x.value];
-        obj.f1y = [obj.f1y, sol{i}.integrator.algvars.f1y.value];
-        obj.f1th = [obj.f1th, sol{i}.integrator.algvars.f1th.value];
-        obj.f2x = [obj.f2x, sol{i}.integrator.algvars.f2x.value];
-        obj.f2y = [obj.f2y, sol{i}.integrator.algvars.f2y.value];
-        obj.f2th = [obj.f2th, sol{i}.integrator.algvars.f2th.value];
       end
+      
+      obj.zmp_x = sol{1}.integrator.algvars.zmp_x.value;
+
       for i=1:length(sol)
         if i == 1
           obj.control_time = times{i}.controls.value;
@@ -136,6 +129,7 @@ classdef Result
         obj.pjx = [obj.pjx, pj(:,1)];
         obj.pjy = [obj.pjy, pj(:,2)];
       end
+      
       if obj.flags.optimize_k
         khips = sol{1}.states.khip.value; obj.khip = khips(1);
         kknees = sol{1}.states.kknee.value; obj.kknee = kknees(1);
@@ -155,7 +149,7 @@ classdef Result
       obj.solve_time = sol_info.timeMeasures.solveTotal;
 
       % ダブり要素の削除
-      del = [obj.state_size(1) sum(obj.state_size(1:2))];
+      del = obj.state_size(1);
       obj.xb(del) = []; obj.yb(del) = []; obj.thb(del) = []; obj.lw(del) = [];
       obj.th1(del) = []; obj.th2(del) = []; obj.th3(del) = [];
       obj.th4(del) = []; obj.th5(del) = []; obj.th6(del) = [];
@@ -168,21 +162,19 @@ classdef Result
       obj.dphi4(del) = []; obj.dphi5(del) = []; obj.dphi6(del) = [];
       obj.pjx(:,del) = []; obj.pjy(:,del) = [];
       obj.time(del) = [];
-      obj.state_size = obj.state_size - [0 1 1];
+      obj.state_size = obj.state_size - [0 1];
       
       
-      del = [obj.control_size(1) sum(obj.control_size(1:2))];
+      del = obj.control_size(1);
       obj.u1(del) = []; obj.u2(del) = []; obj.u3(del) = [];
       obj.u4(del) = []; obj.u5(del) = []; obj.u6(del) = [];
       obj.uw(del) = []; obj.control_time(del) = [];
-      obj.control_size = obj.control_size - [0 1 1];
+      obj.control_size = obj.control_size - [0 1];
       
       
-      del = [obj.algvars_size(1) sum(obj.algvars_size(1:2))];
-      obj.f1x(del) = []; obj.f1y(del) = []; obj.f1th(del) = [];
-      obj.f2x(del) = []; obj.f2y(del) = []; obj.f2th(del) = [];
+      del = obj.algvars_size(1);
       obj.algvars_time(del) = [];
-      obj.algvars_size = obj.algvars_size - [0 1 1];
+      obj.algvars_size = obj.algvars_size - [0 1];
     end
     function pj = calc_pj(obj, k)
         q = [obj.xb(k);obj.yb(k);obj.thb(k);obj.lw(k); ...
@@ -209,6 +201,28 @@ classdef Result
         pj(8,:) = pj(6,:) -  params.c2              * [cos(th_abs(6)) sin(th_abs(6))]; %leg2 heel
         pj(9,:) = pb      +  params.l7              * [cos(th_abs(7)) sin(th_abs(7))]; %head
         pj(10,:) = pb      + (params.l7 - lwm    )  * [cos(th_abs(7)) sin(th_abs(7))];
+    end
+    
+    function x = make_struct(obj, k)
+      x = struct('xb',obj.xb(k),'yb',obj.yb(k),'thb',obj.thb(k),'lw',obj.lw(k), ...
+                 'th1',obj.th1(k),'th2',obj.th2(k),'th3',obj.th3(k), ...
+                 'th4',obj.th4(k),'th5',obj.th5(k),'th6',obj.th6(k), ...
+                 'dxb',obj.dxb(k),'dyb',obj.dyb(k),'dthb',obj.dthb(k),'dlw',obj.dlw(k), ...
+                 'dth1',obj.dth1(k),'dth2',obj.dth2(k),'dth3',obj.dth3(k), ...
+                 'dth4',obj.dth4(k),'dth5',obj.dth5(k),'dth6',obj.dth6(k));
+      if obj.flags.optimize_mw
+        x.mw = obj.mw;
+      end
+      %{ 
+      z = {'ddxb',obj.ddxb(k),'ddyb',obj.ddyb(k),'ddthb',obj.ddthb(k),'ddlw',obj.ddlw(k), ...
+            'ddth1',obj.ddth1(k),'ddth2',obj.ddth2(k),'ddth3',obj.ddth3(k), ...
+            'ddth4',obj.ddth4(k),'ddth5',obj.ddth5(k),'ddth6',obj.ddth6(k)};
+      %}
+    end
+    
+    function pcom = calc_pcom(obj, k)
+      x = make_struct(obj, k);
+      pcom = SEA_model.pcom(params, x);
     end
     
     function draw_line(obj, k, color)

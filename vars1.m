@@ -5,12 +5,10 @@ function vars1(vh)
   optimizer.vars_base(vh);
   
   
-  % 拘束力
-  vh.addAlgVar('f1x');
-  vh.addAlgVar('f1y','lb',0);
-  vh.addAlgVar('f1th');
-  vh.addAlgVar('f2x','lb', 0, 'ub', 0);
-  vh.addAlgVar('f2y','lb', 0, 'ub', 0);
-  vh.addAlgVar('f2th','lb', 0, 'ub', 0);
+  % ZMP
+  vh.addAlgVar('zmp_x','lb', -params.a3, 'ub', params.l3-params.a3);
+  vh.addAlgVar('fex');
+  vh.addAlgVar('fey', 'lb', 0);
+
 
   fprintf('vars1                  complete : %.2f seconds\n',toc);

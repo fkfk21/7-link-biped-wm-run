@@ -85,9 +85,18 @@ function create_model()
 % position of wobbling mass
   pw = pb + (l(7)-lw) * [cos(th_abs(7)) sin(th_abs(7))];
 
+% position of center of mass
+  syms pcom [1 2]
+  pcom(1) = (m*pc(:,1)+mw*pw(1))/sum(m);
+  pcom(2) = (m*pc(:,2)+mw*pw(2))/sum(m);eee
+  
   disp('Calculating velocity');
   dpc = create_model.mydiff(pc,q,dq,d2q,d3q);
+  ddpc = create_model.mydiff(dpc,q,dq,d2q,d3q);
   dpw = create_model.mydiff(pw,q,dq,d2q,d3q);
+  ddpw = create_model.mydiff(dpw,q,dq,d2q,d3q);
+  dpcom = create_model.mydiff(pcom,q,dq,d2q,d3q);
+  ddpcom = create_model.mydiff(dpcom,q,dq,d2q,d3q);
 
 % inertia of wobbling mass
   lgw = (m7 * a7 + mw * (l7 - lw)) / (m7 + mw);
@@ -120,10 +129,10 @@ disp('Calculating Energy');
   disp('Calculating constraints');
   dpj=create_model.mydiff(pj,q,dq, d2q,d3q);
 
-  Jc1 = jacobian([dpj(2,:) dth_abs(3)],dq);
+  Jc1 = jacobian(dpj(2,:),dq);
   dJc1 = create_model.mydiff(Jc1,q,dq, d2q,d3q);
 
-  Jc2 = jacobian([dpj(6,:) dth_abs(6)],dq);
+  Jc2 = jacobian(dpj(6,:),dq);
   dJc2 = create_model.mydiff(Jc2,q,dq, d2q,d3q);
 
   disp(['Writing SEA model to file']);
@@ -132,6 +141,12 @@ disp('Calculating Energy');
   matlabFunction(dpj,'file','+SEA_model/dpj.m');
   matlabFunction(pc,'file','+SEA_model/pc.m');
   matlabFunction(dpc,'file','+SEA_model/dpc.m');
+  matlabFunction(ddpc,'file','+SEA_model/ddpc.m');
+  matlabFunction(pw,'file','+SEA_model/pw.m');
+  matlabFunction(ddpw,'file','+SEA_model/ddpw.m');
+  matlabFunction(pcom,'file','+SEA_model/pcom.m');
+  matlabFunction(dpcom,'file','+SEA_model/dpcom.m');
+  matlabFunction(ddpcom,'file','+SEA_model/ddpcom.m');
   matlabFunction(M,'file','+SEA_model/M.m');
   matlabFunction(h,'file','+SEA_model/h.m');
   matlabFunction(Jc1,'file','+SEA_model/Jc1.m');

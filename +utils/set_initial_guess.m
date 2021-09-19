@@ -35,12 +35,6 @@ mode.initialize('dphi3', [0 1], diff(ig.phi3(:,n:n+1))/period(n)*ones(1,2));
 mode.initialize('dphi4', [0 1], diff(ig.phi4(:,n:n+1))/period(n)*ones(1,2));
 mode.initialize('dphi5', [0 1], diff(ig.phi5(:,n:n+1))/period(n)*ones(1,2));
 mode.initialize('dphi6', [0 1], diff(ig.phi6(:,n:n+1))/period(n)*ones(1,2));
-mode.initialize('f1x', [0 1], ig.f1x(:, n:n+1));
-mode.initialize('f1y', [0 1], ig.f1y(:, n:n+1));
-mode.initialize('f1th', [0 1], ig.f1th(:, n:n+1));
-mode.initialize('f2x', [0 1], ig.f2x(:, n:n+1));
-mode.initialize('f2y', [0 1], ig.f2y(:, n:n+1));
-mode.initialize('f2th', [0 1], ig.f2th(:, n:n+1));
 period_tmp = [0, period];
 mode.initialize('time', [0 1], [sum(period_tmp(1:n)) sum(period_tmp(1:n+1))]);
 
@@ -52,6 +46,10 @@ end
 if flags.optimize_mw
   mode.initialize('mw'    , [0 1],ig.mw    *ones(1,2));
 end
+if mode_num == 1
+  mode.initialize('zmp_x', [0 1], ig.zmp_x);
+end
+
 else
   
 end
