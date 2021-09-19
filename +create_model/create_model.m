@@ -88,8 +88,12 @@ function create_model()
 % position of center of mass
   syms pcom [1 2]
   pcom(1) = (m*pc(:,1)+mw*pw(1))/sum(m);
-  pcom(2) = (m*pc(:,2)+mw*pw(2))/sum(m);eee
-  
+  pcom(2) = (m*pc(:,2)+mw*pw(2))/sum(m);
+
+% position of ZMP
+  syms zmp_x
+  pzmp = pj(2,:) + zmp_x * [cos(th_abs(3)) sin(th_abs(3))]; %leg2 toe
+
   disp('Calculating velocity');
   dpc = create_model.mydiff(pc,q,dq,d2q,d3q);
   ddpc = create_model.mydiff(dpc,q,dq,d2q,d3q);
@@ -135,6 +139,9 @@ disp('Calculating Energy');
   Jc2 = jacobian(dpj(6,:),dq);
   dJc2 = create_model.mydiff(Jc2,q,dq, d2q,d3q);
 
+  dpzmp = create_model.mydiff(pzmp,q,dq,d2q,d3q);
+  Jzmp = jacobian(dpzmp,dq);
+  
   disp(['Writing SEA model to file']);
   [~,~]=mkdir('+SEA_model');
   matlabFunction(pj,'file','+SEA_model/pj.m');
@@ -153,6 +160,7 @@ disp('Calculating Energy');
   matlabFunction(dJc1,'file','+SEA_model/dJc1.m');
   matlabFunction(Jc2,'file','+SEA_model/Jc2.m');
   matlabFunction(dJc2,'file','+SEA_model/dJc2.m');
+  matlabFunction(Jzmp,'file','+SEA_model/Jzmp.m');
   create_model.modify_functions();
   disp('Finish');
   toc

@@ -37,8 +37,8 @@ function gridconstraints1(conh, k, K, x, p)
   if k >= 3
       conh.add(ppphi-2*pphi+phi,'<=',2) %滑らか制約
       conh.add(ppphi-2*pphi+phi,'>=',-2)
-      conh.add(pplw-2*plw+x.lw,'<=',5) %滑らか制約
-      conh.add(pplw-2*plw+x.lw,'>=',-5)
+      conh.add(pplw-2*plw+x.lw,'<=',1) %滑らか制約
+      conh.add(pplw-2*plw+x.lw,'>=',-1)
   end
   ppphi = pphi;
   pphi = phi;

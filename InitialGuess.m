@@ -23,6 +23,8 @@ classdef InitialGuess
   end
   properties (Constant)
     zmp_x = [0, params.l3-params.a3];
+    fex = [100, 100];
+    fey = [500, 500];
   end
   methods
     function ig = InitialGuess(step, draw)

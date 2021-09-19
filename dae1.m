@@ -38,14 +38,23 @@ function dae1(daeh,x,z,u,p)
 
   g = params.g;
 
+  
   thb = q(3); dthb = dq(3); ddthb = ddq(3);
   th = q(4+1:4+6); dth = dq(4+1:4+6); ddth = ddq(4+1:4+6);
   [~, ~, ddth_abs] = utils.calculate_absolute_angle(th, dth, ddth, thb, dthb, ddthb);
+  pc = SEA_model.pc(params,x,z);
+  pw = SEA_model.pw(params,x,z);
+  pcx = [pc(:,1); pw(1)];
+  pcy = [pc(:,2); pw(2)];
+  ddpc = SEA_model.ddpc(params,x,z);
+  ddpw = SEA_model.ddpw(params,x,z);
+  ddpcx = [ddpc(:,1); ddpw(1)];
+  ddpcy = [ddpc(:,2); ddpw(2)];
   pcom = SEA_model.pcom(params,x);
   ddpcom = SEA_model.ddpcom(params,x,z);
   xcom = pcom(1); ycom = pcom(2);
   ddxcom = ddpcom(1); ddycom = ddpcom(2);
-  %Jc1 = SEA_model.Jc1(params,x);
+  Jzmp = SEA_model.Jzmp(params,x,z);
   fe = [z.fex; z.fey];
   
   if flags.use_sea
@@ -54,14 +63,13 @@ function dae1(daeh,x,z,u,p)
     tau = U;
   end
   tau2 = [uw;tau];
-  %DAE1 = M*ddq -(S*tau2+Jc1.'*fe-h);
-  DAE1 = M*ddq -(S*tau2-h);
+  DAE1 = M*ddq -(S*tau2+Jzmp.'*fe-h);
   DAE2 = B*ddphi - (U-tau);
-  DAE3 = z.zmp_x - (sum(m)*g*xcom + I.'*ddth_abs)/(sum(m)*(ddycom+g));
-  %DAE3 = z.zmp_x - (sum(m.*(ddpcy+g) - m.*ddpcx.*(pcy - 0)) + sum(I.*ddth_abs)) ...
-  %                 /sum(m.*(ddpcy+g));
-  %DAE3 = z.zmp_x - (xcom - ycom*ddxcom/(ddycom+g));
-  %DAE4 = [(xcom-z.zmp_x)/ycom*sum(m)*g; sum(m)*g];
+  DAE3 = sum(m)*[ddxcom; ddycom] - (- [0; sum(m)*g] + fe);
+  DAE4L = -xcom*sum(m)*g + z.zmp_x*z.fey;
+  DAE4R = I.'*ddth_abs + pcx.'*diag(m)*ddpcy - pcy.'*diag(m)*ddpcx;
+  %DAE4R = sum(m)*(xcom*ddycom - ycom*ddxcom);
+  DAE4 = DAE4L - DAE4R;
   
   daeh.setAlgEquation(DAE1(1));
   daeh.setAlgEquation(DAE1(2));
@@ -80,8 +88,8 @@ function dae1(daeh,x,z,u,p)
   daeh.setAlgEquation(DAE2(5));
   daeh.setAlgEquation(DAE2(6));
   daeh.setAlgEquation(DAE3(1));
-  %daeh.setAlgEquation(DAE4(1));
-  %daeh.setAlgEquation(DAE4(2));
+  daeh.setAlgEquation(DAE3(2));
+  daeh.setAlgEquation(DAE4(1));
   
   fprintf('dae1                   complete : %.2f seconds\n',toc);
 end

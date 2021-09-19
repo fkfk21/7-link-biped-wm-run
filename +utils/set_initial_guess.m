@@ -48,6 +48,8 @@ if flags.optimize_mw
 end
 if mode_num == 1
   mode.initialize('zmp_x', [0 1], ig.zmp_x);
+  mode.initialize('fex', [0 1], ig.fex);
+  mode.initialize('fey', [0 1], ig.fey);
 end
 
 else

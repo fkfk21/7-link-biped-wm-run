@@ -38,6 +38,7 @@ function dae2(daeh,x,z,u,p)
   tau2 = [uw;tau];
   DAE1 = M*ddq -(S*tau2-h);
   DAE2 = B*ddphi - (U-tau);
+  DAE3 = [z.fex; z.fey];
   
   daeh.setAlgEquation(DAE1(1));
   daeh.setAlgEquation(DAE1(2));
@@ -55,6 +56,8 @@ function dae2(daeh,x,z,u,p)
   daeh.setAlgEquation(DAE2(4));
   daeh.setAlgEquation(DAE2(5));
   daeh.setAlgEquation(DAE2(6));
+  daeh.setAlgEquation(DAE3(1));
+  daeh.setAlgEquation(DAE3(2));
   
   fprintf('dae2                   complete : %.2f seconds\n',toc);
 end

@@ -2,8 +2,8 @@ close all;
 clc;
 clear;
 global v step flags
-v = 3.5;
-step = 0.8;
+v = 2.8;
+step = 0.5;
 period = step/v;
 
 flags = Flags;
@@ -14,7 +14,7 @@ flags.optimize_k = true;
 flags.check()
 
 
-ig = InitialGuess(step, true);
+ig = InitialGuess(step, false);
 %ig.draw();
 
 

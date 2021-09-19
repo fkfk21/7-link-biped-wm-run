@@ -40,6 +40,8 @@ classdef Result
     u6
     uw
     zmp_x
+    fex
+    fey
     time
     control_time
     algvars_time
@@ -111,6 +113,8 @@ classdef Result
         obj.u5 = [obj.u5, sol{i}.controls.u5.value];
         obj.u6 = [obj.u6, sol{i}.controls.u6.value];
         obj.uw = [obj.uw, sol{i}.controls.uw.value];
+        obj.fex = [obj.fex, sol{i}.integrator.algvars.fex.value];
+        obj.fey = [obj.fey, sol{i}.integrator.algvars.fey.value];
       end
       
       obj.zmp_x = sol{1}.integrator.algvars.zmp_x.value;
@@ -174,6 +178,7 @@ classdef Result
       
       del = obj.algvars_size(1);
       obj.algvars_time(del) = [];
+      obj.fex(del) = []; obj.fey(del) = [];
       obj.algvars_size = obj.algvars_size - [0 1];
     end
     function pj = calc_pj(obj, k)
