@@ -65,10 +65,9 @@ function dae1(daeh,x,z,u,p)
   tau2 = [uw;tau];
   DAE1 = M*ddq -(S*tau2+Jzmp.'*fe-h);
   DAE2 = B*ddphi - (U-tau);
-  DAE3 = sum(m)*[ddxcom; ddycom] - (- [0; sum(m)*g] + fe);
+  DAE3 = sum(m)*[ddxcom; ddycom] - (-[0; sum(m)*g] + fe);
   DAE4L = -xcom*sum(m)*g + z.zmp_x*z.fey;
   DAE4R = I.'*ddth_abs + pcx.'*diag(m)*ddpcy - pcy.'*diag(m)*ddpcx;
-  %DAE4R = sum(m)*(xcom*ddycom - ycom*ddxcom);
   DAE4 = DAE4L - DAE4R;
   
   daeh.setAlgEquation(DAE1(1));

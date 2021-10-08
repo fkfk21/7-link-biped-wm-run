@@ -4,7 +4,6 @@ function gridconstraints2(conh, k, K, x, p)
   tic;
   global q0 phi0 dq0 dphi0
   global ppphi pphi v
-  global pplw plw
 
   % 共通部分
   [q, dq, phi, dphi] = utils.decompose_state(x);
@@ -45,13 +44,8 @@ function gridconstraints2(conh, k, K, x, p)
   % 滑らか制約
   conh.add(ppphi-2*pphi+phi,'<=',2)
   conh.add(ppphi-2*pphi+phi,'>=',-2)
-  conh.add(pplw-2*plw+x.lw,'<=',2) %滑らか制約
-  conh.add(pplw-2*plw+x.lw,'>=',-2)
   ppphi = pphi;
-  pphi = phi;
-  pplw = plw;
-  plw = x.lw;
-  
+  pphi = phi;  
   
   fprintf('gridconstraints2(k=%2d) complete : %.2f seconds\n',k,toc);
 end

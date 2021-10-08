@@ -3,7 +3,7 @@
 function gridconstraints1(conh, k, K, x, p)
   tic;
   global q0 phi0 dq0 dphi0
-  global ppphi pphi pplw plw
+  global ppphi pphi
 
   % 共通部分
   [q, dq, phi, dphi] = utils.decompose_state(x);
@@ -37,13 +37,9 @@ function gridconstraints1(conh, k, K, x, p)
   if k >= 3
       conh.add(ppphi-2*pphi+phi,'<=',2) %滑らか制約
       conh.add(ppphi-2*pphi+phi,'>=',-2)
-      conh.add(pplw-2*plw+x.lw,'<=',1) %滑らか制約
-      conh.add(pplw-2*plw+x.lw,'>=',-1)
   end
   ppphi = pphi;
   pphi = phi;
-  pplw = plw;
-  plw = x.lw;
 
   fprintf('gridconstraints1(k=%2d) complete : %.2f seconds\n',k,toc);
 end

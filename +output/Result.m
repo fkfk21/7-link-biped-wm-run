@@ -32,6 +32,22 @@ classdef Result
     dphi4
     dphi5
     dphi6
+    ddxb
+    ddyb
+    ddthb
+    ddlw
+    ddth1
+    ddth2
+    ddth3
+    ddth4
+    ddth5
+    ddth6
+    ddphi1
+    ddphi2
+    ddphi3
+    ddphi4
+    ddphi5
+    ddphi6
     u1
     u2
     u3
@@ -106,6 +122,22 @@ classdef Result
         obj.dphi5 = [obj.dphi5, sol{i}.states.dphi5.value];
         obj.dphi6 = [obj.dphi6, sol{i}.states.dphi6.value];
         obj.time = [obj.time, sol{i}.states.time.value];
+        obj.ddxb = [obj.ddxb, sol{i}.integrator.algvars.ddxb.value];
+        obj.ddyb = [obj.ddyb, sol{i}.integrator.algvars.ddyb.value];
+        obj.ddthb = [obj.ddthb, sol{i}.integrator.algvars.ddthb.value];
+        obj.ddlw = [obj.ddlw, sol{i}.integrator.algvars.ddlw.value];
+        obj.ddth1 = [obj.ddth1, sol{i}.integrator.algvars.ddth1.value];
+        obj.ddth2 = [obj.ddth2, sol{i}.integrator.algvars.ddth2.value];
+        obj.ddth3 = [obj.ddth3, sol{i}.integrator.algvars.ddth3.value];
+        obj.ddth4 = [obj.ddth4, sol{i}.integrator.algvars.ddth4.value];
+        obj.ddth5 = [obj.ddth5, sol{i}.integrator.algvars.ddth5.value];
+        obj.ddth6 = [obj.ddth6, sol{i}.integrator.algvars.ddth6.value];
+        obj.ddphi1 = [obj.ddphi1, sol{i}.integrator.algvars.ddphi1.value];
+        obj.ddphi2 = [obj.ddphi2, sol{i}.integrator.algvars.ddphi2.value];
+        obj.ddphi3 = [obj.ddphi3, sol{i}.integrator.algvars.ddphi3.value];
+        obj.ddphi4 = [obj.ddphi4, sol{i}.integrator.algvars.ddphi4.value];
+        obj.ddphi5 = [obj.ddphi5, sol{i}.integrator.algvars.ddphi5.value];
+        obj.ddphi6 = [obj.ddphi6, sol{i}.integrator.algvars.ddphi6.value];
         obj.u1 = [obj.u1, sol{i}.controls.u1.value];
         obj.u2 = [obj.u2, sol{i}.controls.u2.value];
         obj.u3 = [obj.u3, sol{i}.controls.u3.value];
@@ -175,11 +207,17 @@ classdef Result
       obj.uw(del) = []; obj.control_time(del) = [];
       obj.control_size = obj.control_size - [0 1];
       
-      
+      %{
       del = obj.algvars_size(1);
       obj.algvars_time(del) = [];
+      obj.ddxb(del) = []; obj.ddyb(del) = []; obj.ddthb(del) = []; obj.ddlw(del) = [];
+      obj.ddth1(del) = []; obj.ddth2(del) = []; obj.ddth3(del) = [];
+      obj.ddth4(del) = []; obj.ddth5(del) = []; obj.ddth6(del) = [];
+      obj.ddphi1(del) = []; obj.ddphi2(del) = []; obj.ddphi3(del) = [];
+      obj.ddphi4(del) = []; obj.ddphi5(del) = []; obj.ddphi6(del) = [];
       obj.fex(del) = []; obj.fey(del) = [];
       obj.algvars_size = obj.algvars_size - [0 1];
+      %}
     end
     function pj = calc_pj(obj, k)
         q = [obj.xb(k);obj.yb(k);obj.thb(k);obj.lw(k); ...
@@ -209,26 +247,31 @@ classdef Result
     end
     
     function x = make_struct(obj, k)
-      x = struct('xb',obj.xb(k),'yb',obj.yb(k),'thb',obj.thb(k),'lw',obj.lw(k), ...
-                 'th1',obj.th1(k),'th2',obj.th2(k),'th3',obj.th3(k), ...
-                 'th4',obj.th4(k),'th5',obj.th5(k),'th6',obj.th6(k), ...
-                 'dxb',obj.dxb(k),'dyb',obj.dyb(k),'dthb',obj.dthb(k),'dlw',obj.dlw(k), ...
-                 'dth1',obj.dth1(k),'dth2',obj.dth2(k),'dth3',obj.dth3(k), ...
-                 'dth4',obj.dth4(k),'dth5',obj.dth5(k),'dth6',obj.dth6(k));
+      s_k = k;
+      %a_k = (k-1)*3;
+      x = struct('xb',obj.xb(s_k),'yb',obj.yb(s_k),'thb',obj.thb(s_k),'lw',obj.lw(s_k), ...
+                 'th1',obj.th1(s_k),'th2',obj.th2(s_k),'th3',obj.th3(s_k), ...
+                 'th4',obj.th4(s_k),'th5',obj.th5(s_k),'th6',obj.th6(s_k), ...
+                 'dxb',obj.dxb(s_k),'dyb',obj.dyb(s_k),'dthb',obj.dthb(s_k),'dlw',obj.dlw(s_k), ...
+                 'dth1',obj.dth1(s_k),'dth2',obj.dth2(s_k),'dth3',obj.dth3(s_k), ...
+                 'dth4',obj.dth4(s_k),'dth5',obj.dth5(s_k),'dth6',obj.dth6(s_k));
       if obj.flags.optimize_mw
         x.mw = obj.mw;
       end
-      %{ 
-      z = {'ddxb',obj.ddxb(k),'ddyb',obj.ddyb(k),'ddthb',obj.ddthb(k),'ddlw',obj.ddlw(k), ...
-            'ddth1',obj.ddth1(k),'ddth2',obj.ddth2(k),'ddth3',obj.ddth3(k), ...
-            'ddth4',obj.ddth4(k),'ddth5',obj.ddth5(k),'ddth6',obj.ddth6(k)};
-      %}
+      %z = struct('ddxb',obj.ddxb(a_k),'ddyb',obj.ddyb(a_k),'ddthb',obj.ddthb(a_k),'ddlw',obj.ddlw(a_k), ...
+      %           'ddth1',obj.ddth1(a_k),'ddth2',obj.ddth2(a_k),'ddth3',obj.ddth3(a_k), ...
+      %           'ddth4',obj.ddth4(a_k),'ddth5',obj.ddth5(a_k),'ddth6',obj.ddth6(a_k));
     end
     
     function pcom = calc_pcom(obj, k)
       x = make_struct(obj, k);
       pcom = SEA_model.pcom(params, x);
     end
+    function ddpcom = calc_ddpcom(obj,k)
+      [x,z] = make_struct(obj, k);
+      ddpcom = SEA_model.ddpcom(params, x, z);
+    end
+    
     
     function draw_line(obj, k, color)
         l1 = line([obj.xb(k)   ,obj.pjx(1,k)],[obj.yb(k)   ,obj.pjy(1,k)],'Color', color);
