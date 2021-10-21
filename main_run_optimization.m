@@ -3,7 +3,7 @@ clc;
 clear;
 global v step flags
 v = 2.8;
-step = 0.6;
+step = 1.0;
 period = step/v;
 
 flags = Flags;

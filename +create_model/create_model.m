@@ -141,6 +141,7 @@ disp('Calculating Energy');
 
   dpzmp = create_model.mydiff(pzmp,q,dq,d2q,d3q);
   Jzmp = jacobian(dpzmp,dq);
+  dJzmp = create_model.mydiff(Jzmp,q,dq, d2q,d3q);
   
   disp(['Writing SEA model to file']);
   [~,~]=mkdir('+SEA_model');
@@ -161,6 +162,7 @@ disp('Calculating Energy');
   matlabFunction(Jc2,'file','+SEA_model/Jc2.m');
   matlabFunction(dJc2,'file','+SEA_model/dJc2.m');
   matlabFunction(Jzmp,'file','+SEA_model/Jzmp.m');
+  matlabFunction(dJzmp,'file','+SEA_model/dJzmp.m');
   create_model.modify_functions();
   disp('Finish');
   toc

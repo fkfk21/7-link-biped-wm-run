@@ -55,6 +55,9 @@ function dae1(daeh,x,z,u,p)
   xcom = pcom(1); ycom = pcom(2);
   ddxcom = ddpcom(1); ddycom = ddpcom(2);
   Jzmp = SEA_model.Jzmp(params,x,z);
+  dJzmp = SEA_model.dJzmp(params,x,z);
+  Jc1 = SEA_model.Jc1(params,x);
+  dJc1 = SEA_model.dJc1(params,x);
   fe = [z.fex; z.fey];
   
   if flags.use_sea
@@ -63,9 +66,9 @@ function dae1(daeh,x,z,u,p)
     tau = U;
   end
   tau2 = [uw;tau];
-  DAE1 = M*ddq -(S*tau2+Jzmp.'*fe-h);
+  DAE1 = [M,-Jc1.'; Jc1,zeros(2,2)]*[ddq;fe] - [S*tau2-h; -dJc1*dq];
   DAE2 = B*ddphi - (U-tau);
-  DAE3 = sum(m)*[ddxcom; ddycom] - (-[0; sum(m)*g] + fe);
+  %DAE3 = sum(m)*[ddxcom; ddycom] - (-[0; sum(m)*g] + fe);
   DAE4L = -xcom*sum(m)*g + z.zmp_x*z.fey;
   DAE4R = I.'*ddth_abs + pcx.'*diag(m)*ddpcy - pcy.'*diag(m)*ddpcx;
   DAE4 = DAE4L - DAE4R;
@@ -86,8 +89,10 @@ function dae1(daeh,x,z,u,p)
   daeh.setAlgEquation(DAE2(4));
   daeh.setAlgEquation(DAE2(5));
   daeh.setAlgEquation(DAE2(6));
-  daeh.setAlgEquation(DAE3(1));
-  daeh.setAlgEquation(DAE3(2));
+  %daeh.setAlgEquation(DAE3(1));
+  %daeh.setAlgEquation(DAE3(2));
+  daeh.setAlgEquation(DAE1(11));
+  daeh.setAlgEquation(DAE1(12));
   daeh.setAlgEquation(DAE4(1));
   
   fprintf('dae1                   complete : %.2f seconds\n',toc);
