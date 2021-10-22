@@ -5,7 +5,7 @@ for i=1:length(listing)
   if ~contains(filename,'.m') 
     continue
   end
-  if contains(filename,["M.m","Jc1.m","Jc2.m","pj.m","dpj.m"])
+  if or(contains(filename,["M.m","Jc1.m","Jc2.m","pj.m","dpj.m"]), strcmp(filename,"pcom.m"))
     contents = fileread(filename);
     matches = regexp(contents,'\([\w,]+\)','match');
     newstr = ['(params,x)' newline fileread('+create_model/decomposition2.m')];

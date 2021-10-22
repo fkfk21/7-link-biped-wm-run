@@ -2,7 +2,7 @@ close all;
 clc;
 clear;
 global v step flags
-v = 2.8;
+v = 4.0;
 step = 1.0;
 period = step/v;
 
@@ -35,7 +35,7 @@ mode2 = ocl.Stage( ...
 
 
 %                        1end  
-period_bound = period*[0.3, 0.7];
+period_bound = period*[0.5, 0.8];
 mode1.setInitialStateBounds('time', 0);
 mode1.setEndStateBounds('time', period_bound(1), period_bound(2));
 mode2.setInitialStateBounds('time', period_bound(1), period_bound(2));

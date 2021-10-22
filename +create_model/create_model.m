@@ -133,14 +133,14 @@ disp('Calculating Energy');
   disp('Calculating constraints');
   dpj=create_model.mydiff(pj,q,dq, d2q,d3q);
 
-  Jc1 = jacobian(dpj(2,:),dq);
+  Jc1 = jacobian([dpj(2,:) dth_abs(3)],dq);
   dJc1 = create_model.mydiff(Jc1,q,dq, d2q,d3q);
 
-  Jc2 = jacobian(dpj(6,:),dq);
+  Jc2 = jacobian([dpj(6,:) dth_abs(6)],dq);
   dJc2 = create_model.mydiff(Jc2,q,dq, d2q,d3q);
 
   dpzmp = create_model.mydiff(pzmp,q,dq,d2q,d3q);
-  Jzmp = jacobian(dpzmp,dq);
+  Jzmp = jacobian([dpzmp dth_abs(3)],dq);
   dJzmp = create_model.mydiff(Jzmp,q,dq, d2q,d3q);
   
   disp(['Writing SEA model to file']);

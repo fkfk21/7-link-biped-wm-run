@@ -58,6 +58,7 @@ classdef Result
     zmp_x
     fex
     fey
+    feth
     time
     control_time
     algvars_time
@@ -147,6 +148,8 @@ classdef Result
         obj.uw = [obj.uw, sol{i}.controls.uw.value];
         obj.fex = [obj.fex, sol{i}.integrator.algvars.fex.value];
         obj.fey = [obj.fey, sol{i}.integrator.algvars.fey.value];
+        obj.feth = [obj.feth, sol{i}.integrator.algvars.feth.value];
+
       end
       
       obj.zmp_x = sol{1}.integrator.algvars.zmp_x.value;
