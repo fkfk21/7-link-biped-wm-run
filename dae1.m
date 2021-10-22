@@ -66,7 +66,7 @@ function dae1(daeh,x,z,u,p)
     tau = U;
   end
   tau2 = [uw;tau];
-  DAE1 = [M,-Jc1.'; Jc1,zeros(3,3)]*[ddq;fe] - [S*tau2-h; -dJc1*dq];
+  DAE1 = [M,-Jzmp.'; Jzmp,zeros(3,3)]*[ddq;fe] - [S*tau2-h; -dJzmp*dq];
   DAE2 = B*ddphi - (U-tau);
   %DAE3 = sum(m)*[ddxcom; ddycom] - (-[0; sum(m)*g] + fe);
   %DAE4L = -xcom*sum(m)*g + z.zmp_x*z.fey;
