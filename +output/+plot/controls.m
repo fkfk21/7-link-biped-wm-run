@@ -9,6 +9,7 @@ end
 legend('u1','u2','u3','u4','u5','u6');
 xlabel('time [t]'); ylabel('u [Nm]');
 ylim([-300, 300]);
+xlim([0, result.control_time(end)]);
 result.separate_background_with_section('control');
 
 figure;

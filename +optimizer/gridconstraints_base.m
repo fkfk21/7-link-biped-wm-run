@@ -11,6 +11,10 @@ function gridconstraints_base(conh, q, phi, pj, dpj, x)
     conh.add(q(5:10)-phi,'<=',pi*ones(6,1));
   end
   
+  if flags.optimize_k
+    conh.add(x.khip,'<=',x.kknee);
+    conh.add(x.kankle,'<=',x.kknee);
+  end
   % 前進制約
   conh.add(dpj(6,1),'>=',0);
   conh.add(x.dxb, '>=', 0);

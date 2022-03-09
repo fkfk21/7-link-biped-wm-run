@@ -1,3 +1,12 @@
+%% animation
+% argument
+% result: instance of Result class which is the result of optimization
+% loop: the number of steps of animation
+% playratio: ratio to vary time axis.
+% save_video: true or false
+% filename: save video filename
+
+%%
 function animation(result, loop, playratio, save_video, filename)
 set(0, 'DefaultLineLineWidth', 1);
 close all;
@@ -7,7 +16,7 @@ plot([-10 10],[0 0],'k')
 hold on
 axis equal
 ylim([-0.2 1.8])
-xlim([-0.5 result.step*loop+0.5])
+xlim([-0.8 result.step*loop+0.5])
 formatSpec = 'time: %.4f';
 title_handle = title(sprintf(formatSpec, 0.0));
 
@@ -87,7 +96,7 @@ for n=1:loop
       end
       
       % 現在時刻がtime(k)を上回ったらkをインクリメント
-      while(t>=time(k))
+      while(t>=time(k) && k < length(time))
         k = k + 1;
       end
       % 現在時刻がresult.algvars_time(k2)を上回ったらk2をインクリメント

@@ -183,7 +183,7 @@ classdef Result
       obj.step = obj.v*obj.period;
       
       obj.objective = sol_info.ipopt_stats.iterations.obj(end);
-      obj.sr = obj.objective/obj.period;
+      obj.sr = obj.objective;
       
       obj.solve_time = sol_info.timeMeasures.solveTotal;
 

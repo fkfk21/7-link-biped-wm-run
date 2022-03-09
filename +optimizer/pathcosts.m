@@ -1,6 +1,6 @@
 function pathcosts(ch, x, z, u, p)
   tic;
-  global v flags
+  global v T flags
 
   if flags.use_sea
     dphi = [x.dphi1;x.dphi2;x.dphi3;x.dphi4;x.dphi5;x.dphi6;x.dlw];
@@ -16,9 +16,9 @@ function pathcosts(ch, x, z, u, p)
   end
   g = 9.80665;
   if flags.use_sea
-    ch.add(sum(abs(dphi.*U))/(M*g*v));
+    ch.add(sum(abs(dphi.*U))/(M*g*v)/T);
   else
-    ch.add(sum(abs(dth.*U))/(M*g*v));
+    ch.add(sum(abs(dth.*U))/(M*g*v)/T);
   end
   
   fprintf('pathcosts             complete : %.2f seconds\n',toc);

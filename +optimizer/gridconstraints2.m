@@ -3,13 +3,13 @@
 function gridconstraints2(conh, k, K, x, p)
   tic;
   global q0 phi0 dq0 dphi0
-  global ppphi pphi v
+  global ppphi pphi v T
 
   % 共通部分
   [q, dq, phi, dphi] = utils.decompose_state(x);
   pj = SEA_model.pj(params,x);
   dpj = SEA_model.dpj(params,x);
-  gridconstraints_base(conh, q, phi, pj, dpj, x);
+  optimizer.gridconstraints_base(conh, q, phi, pj, dpj, x);
 
   % 各関節が地面より上(y座標制約)
   conh.add(pj(1,2),'>=',0);
@@ -38,7 +38,8 @@ function gridconstraints2(conh, k, K, x, p)
         ];
       reset_map2 = blkdiag(eye(4),reset_map1,reset_map1);
       reset_map = blkdiag(reset_map2,reset_map2);
-      conh.add([q;phi;dq_after;dphi],'==',reset_map*[q0;phi0;dq0;dphi0]+[x.time*v;zeros(31,1)]);
+      T = x.time;
+      conh.add([q;phi;dq_after;dphi],'==',reset_map*[q0;phi0;dq0;dphi0]+[T*v;zeros(31,1)]);
   end
   
   % 滑らか制約

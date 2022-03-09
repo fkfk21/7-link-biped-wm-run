@@ -31,7 +31,7 @@ classdef InitialGuess
       ig.xb = [-step/3,step/4,step*2/3];
       ig.yb = [sqrt(0.8^2-(step/3)^2),sqrt(0.8^2-(step/4)^2),sqrt(0.8^2-(step/3)^2)];
       ig.thb = [pi,pi,pi]*2/5;
-      ig.lw = ones(1,3)*params.l7/2;
+      ig.lw = [0.4, 0.4, 0.4]*params.l7;
       ig.th1 = [asin(step/3/0.8),-asin(step/4/0.8),-asin(step/3/0.8)]+(pi+(pi/2-ig.thb));
       ig.th2 = [0,0,-pi/4];
       ig.th3 = [acos(step/3/0.8),pi-acos(step/4/0.8),pi-acos(step/3/0.8)];
