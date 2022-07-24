@@ -5,7 +5,7 @@
 ![snapshot](https://raw.githubusercontent.com/wiki/fkfk21/7-link-biped-wm-run/image/snapshot.png)
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/wiki/fkfk21/7-link-biped-wm-run/image/zmp_40" width="800">
+<img src="https://raw.githubusercontent.com/wiki/fkfk21/7-link-biped-wm-run/image/zmp_40.gif" width="800">
 <img src="https://raw.githubusercontent.com/wiki/fkfk21/7-link-biped-wm-run/image/snapshot.png" width="400">
 </div>
 
