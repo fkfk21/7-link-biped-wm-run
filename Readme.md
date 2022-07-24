@@ -1,12 +1,9 @@
 # Sample Result
 *v=4.0[m/s]* 
 
-![result](https://raw.githubusercontent.com/wiki/fkfk21/7-link-biped-wm-run/image/zmp_40.gif)
-![snapshot](https://raw.githubusercontent.com/wiki/fkfk21/7-link-biped-wm-run/image/snapshot.png)
-
 <div align="center">
 <img src="https://raw.githubusercontent.com/wiki/fkfk21/7-link-biped-wm-run/image/zmp_40.gif" width="800">
-<img src="https://raw.githubusercontent.com/wiki/fkfk21/7-link-biped-wm-run/image/snapshot.png" width="400">
+<img src="https://raw.githubusercontent.com/wiki/fkfk21/7-link-biped-wm-run/image/snapshot.png" width="600">
 </div>
 
 # How to Use
