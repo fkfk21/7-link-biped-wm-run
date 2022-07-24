@@ -1,5 +1,5 @@
 # Sample Result
-*v=4.0[m/s]* 
+**v=4.0[m/s]**
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/wiki/fkfk21/7-link-biped-wm-run/image/zmp_40.gif" width="800">
