@@ -1,7 +1,8 @@
 # Sample Result
-* v=4.0[m/s] * 
+*v=4.0[m/s]* 
 
 ![result](https://raw.githubusercontent.com/wiki/fkfk21/7-link-biped-wm-run/image/zmp_40.gif)
+![snapshot](https://raw.githubusercontent.com/wiki/fkfk21/7-link-biped-wm-run/image/snapshot.png)
 
 
 # How to Use
