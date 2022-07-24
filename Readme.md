@@ -4,6 +4,10 @@
 ![result](https://raw.githubusercontent.com/wiki/fkfk21/7-link-biped-wm-run/image/zmp_40.gif)
 ![snapshot](https://raw.githubusercontent.com/wiki/fkfk21/7-link-biped-wm-run/image/snapshot.png)
 
+<div align="center">
+<img src="https://raw.githubusercontent.com/wiki/fkfk21/7-link-biped-wm-run/image/zmp_40" width="800">
+<img src="https://raw.githubusercontent.com/wiki/fkfk21/7-link-biped-wm-run/image/snapshot.png" width="400">
+</div>
 
 # How to Use
 1. download openocl library from https://github.com/OpenOCL/OpenOCL and add this to the path
